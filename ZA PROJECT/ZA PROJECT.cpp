@@ -1,20 +1,48 @@
-// ZA PROJECT.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+#include <SFML/Graphics.hpp>
 
-#include <iostream>
+using namespace sf;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    // Create a window
+    RenderWindow window(VideoMode(800, 600), "SFML Example");
+
+    // Create a circle
+    CircleShape circle(50);
+    circle.setFillColor(Color::Green);
+    circle.setPosition(375, 275);
+
+    // Set the speed of the circle
+    float speed = 1.0f;
+
+    while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                window.close();
+        }
+
+        // Move the circle based on arrow key input
+        if (Keyboard::isKeyPressed(Keyboard::Left))
+            circle.move(-speed, 0);
+        if (Keyboard::isKeyPressed(Keyboard::Right))
+            circle.move(speed, 0);
+        if (Keyboard::isKeyPressed(Keyboard::Up))
+            circle.move(0, -speed);
+        if (Keyboard::isKeyPressed(Keyboard::Down))
+            circle.move(0, speed);
+
+        // Clear the window
+        window.clear();
+
+        // Draw the circle
+        window.draw(circle);
+
+        // Display the content of the window
+        window.display();
+    }
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
