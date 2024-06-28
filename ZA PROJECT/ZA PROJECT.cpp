@@ -462,7 +462,7 @@ void activate_fire_ability(status& wizard, npcs& enemy, Clock& firetime, int& co
 
 int main() {
     // Create a window
-    RenderWindow window(VideoMode(800, 600), "SFML Example");
+    RenderWindow window(VideoMode(1920,1080), "SFML Example");
 
     Clock it;
 
