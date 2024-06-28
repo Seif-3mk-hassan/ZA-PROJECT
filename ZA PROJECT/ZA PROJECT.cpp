@@ -54,7 +54,7 @@ struct ani
     float timer = 0;
     float delay = .2; float delayq = .1, delaym = .1;
     bool aq = false, ae = false, ar = false, aw = false, lr = true, motion_right = false;
-
+    
 }animation;
 
 void idle(ani& animation, float dt, status& wizard);
