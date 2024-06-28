@@ -464,7 +464,48 @@ int main() {
     // Create a window
     RenderWindow window(VideoMode(1920,1080), "SFML Example");
 
-    Clock it;
+    struct wiza
+    {
+        Clock it;
+        // Clock to manage shooting cooldown
+        Clock cooldown_clock;
+        // Gravity and movement settings
+        const float gravity = 100.0f;
+        float velocity_y = 0;
+        float velocity_y_enemy = 0;
+        bool can_jump = false;
+        bool is_on_ground = false;
+        bool ispoison = false;
+        bool isfire = false;
+
+        int items_statues_counter = 0;
+        int abilit_1 = 0;
+        int ultimate = 0;
+        int flash = 0;
+        int bullet_counter = 0;
+
+        // Clock to track game time
+        Clock gametime;
+
+        Clock time;
+
+        Clock tfisrt;
+
+        Clock shockWaveClock; // Clock to manage shock wave cooldown
+
+        Clock firetime;
+
+        Clock second_item_passive;
+        int second_item_counter = 0;
+
+        int counter = 1;
+
+        int counter_fire = 1;
+        Clock poison_timer;
+        float t = 0;
+        float deltatime = 0;
+    }wiz;
+   
 
     // Initialize the main character and ground
     main_character_and_ground();
@@ -473,48 +514,12 @@ int main() {
     wizard.wizard.setTexture(wizard.wiz_tx);
     wizard.wizard.setTextureRect(IntRect(0, 0, 96, 98));
 
-    // Clock to manage shooting cooldown
-    Clock cooldown_clock;
-
-    // Gravity and movement settings
-    const float gravity = 100.0f;
-    float velocity_y = 0;
-    float velocity_y_enemy = 0;
-    bool can_jump = false;
-    bool is_on_ground = false;
-    bool ispoison = false;
-    bool isfire = false;
-
-    int items_statues_counter = 0;
-    int abilit_1 = 0;
-    int ultimate = 0;
-    int flash = 0;
-    int bullet_counter = 0;
-    // Clock to track game time
-    Clock gametime;
-
-    Clock time;
-
-    Clock tfisrt;
-
-    Clock shockWaveClock; // Clock to manage shock wave cooldown
-
-    Clock firetime;
-
-    Clock second_item_passive;
-    int second_item_counter = 0;
-
-    int counter = 1;
-
-    int counter_fire = 1;
-    Clock poison_timer;
-    float t = 0;
-    float deltatime = 0;
+    
     // Game loop
     while (window.isOpen()) {
         // Event handling
         Event event;
-        gametime.restart();
+        wiz.gametime.restart();
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
@@ -522,47 +527,47 @@ int main() {
         }
 
         if (Keyboard::isKeyPressed(Keyboard::T)) {
-            activate_time_warp(wizard, enemy.istimewarpon, ultimate);
+            activate_time_warp(wizard, enemy.istimewarpon, wiz.ultimate);
         }
 
         if (Keyboard::isKeyPressed(Keyboard::V)) {
-            isfire = true;
+            wiz.isfire = true;
         }
-        if (isfire)
+        if (wiz.isfire)
         {
-            activate_fire_ability(wizard, enemy, firetime, counter_fire, isfire, is_on_ground, abilit_1);
+            activate_fire_ability(wizard, enemy,wiz.firetime, wiz.counter_fire, wiz.isfire,wiz.is_on_ground,wiz.abilit_1);
         }
         if (Keyboard::isKeyPressed(Keyboard::K))
         {
             items[0].isactive = true;
         }
-        first_item(wizard, items_statues_counter);
+        first_item(wizard, wiz.items_statues_counter);
         if (Keyboard::isKeyPressed(Keyboard::L))//the place of the technique will be used
         {
             items[1].isactive = true;
         }
-        second_item(second_item_counter, second_item_passive);
+        second_item(wiz.second_item_counter,wiz.second_item_passive);
 
         // Handle the effects of Time Warp ability
-        handle_time_warp(wizard, enemy, deltatime, enemy.istimewarpon, ultimate);
+        handle_time_warp(wizard, enemy, wiz.deltatime, enemy.istimewarpon, wiz.ultimate);
 
         // Handle movement
-        handle_movement(wizard, velocity_y, can_jump, is_on_ground, deltatime, gravity, it, animation);
+        handle_movement(wizard, wiz.velocity_y, wiz.can_jump,wiz.is_on_ground,wiz.deltatime, wiz.gravity, wiz.it, animation);
 
 
 
         if (Keyboard::isKeyPressed(Keyboard::B)) {
-            flash_ability(wizard, flash);
+            flash_ability(wizard, wiz.flash);
         }
 
 
-        handle_movement_enemy(enemy, velocity_y_enemy, is_on_ground, deltatime, gravity, enemy.istimewarpon);
+        handle_movement_enemy(enemy, wiz.velocity_y_enemy,wiz.is_on_ground, wiz.deltatime,wiz.gravity, enemy.istimewarpon);
 
         // Handle shooting bullets
         Vector2f player_center = wizard.wizard.getPosition();
         Vector2f mouse_position = Vector2f(Mouse::getPosition(window));
         if (Mouse::isButtonPressed(Mouse::Left)) {
-            shoot_bullet(player_center, mouse_position, cooldown_clock, wizard.auto_cooldown_duration);
+            shoot_bullet(player_center, mouse_position, wiz.cooldown_clock, wizard.auto_cooldown_duration);
         }
 
         // Update bullets' positions and manage them
@@ -585,7 +590,7 @@ int main() {
                         items[0].extra_damege = 0.05f * wizard.autodamage;
                     }
                     enemy.health -= wizard.autodamage + items[0].extra_damege;
-                    ispoison = true;
+                    wiz.ispoison = true;
                 }
                 bullets.erase(bullets.begin() + i);
             }
@@ -618,7 +623,7 @@ int main() {
         // Display the content of the window
         window.display();
 
-        deltatime = gametime.getElapsedTime().asSeconds();
+        wiz.deltatime = wiz.gametime.getElapsedTime().asSeconds();
 
     }
 
