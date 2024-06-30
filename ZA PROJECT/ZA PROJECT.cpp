@@ -49,6 +49,7 @@ struct status {
 }wizard;
 
 
+
 //sounds
 struct SOUNd
 {
@@ -775,6 +776,41 @@ struct npcs {
     float damage_done = 50;
 } enemy;
 
+//enemies---->seif_hassan
+struct enemies
+{
+    RectangleShape enemy;
+    int hp = 100;
+}enemy1;
+
+void setup_enemy(status& wizard, enemies& enemy, Clock& damge) {
+    float wiz_pos = wizard.wizard.getPosition().x;
+    float enemy_pos = enemy.enemy.getPosition().x;
+    if (abs(wiz_pos - enemy_pos) <= 300 && abs(wiz_pos - enemy_pos) >= 30)
+    {
+        //enemy.enemy.setPosition(enemy.enemy.getPosition().x, 805);
+        //enemy.enemy.setFillColor(Color::Blue);
+        int direction = wiz_pos - enemy_pos;
+        direction /= sqrt(direction * direction + 0); // Normalize the direction vector
+        enemy.enemy.move(0.1 * direction, 0);
+
+    }
+    else if (abs(wiz_pos - enemy_pos) <= 30)
+    {
+        enemy.enemy.move(0, 0);
+        enemy.enemy.setFillColor(Color::Blue);
+        if (damge.getElapsedTime().asSeconds() >= 1.5 && abs(wizard.wizard.getPosition().y - enemy.enemy.getPosition().y) < 50)
+        {
+            damge.restart();
+            wizard.hp -= 100;
+        }
+    }
+    else
+    {
+        enemy.enemy.setFillColor(Color::Green);
+    }
+
+}
 
 struct maap
 {
@@ -2464,8 +2500,8 @@ void blocks_colision(maap& map, bool& is_on_ground, maap2& map2, bool& level1_co
 int main() {
     RenderWindow window(sf::VideoMode(1920, 1080), "SFML Health Bar");
 
-    bool level1_completed = true;
-    bool level2_completed = false;
+    bool level1_completed = false;
+    bool level2_completed = true;
     bool level3_completed = true;
 
     Boss boss;
@@ -2597,6 +2633,14 @@ int main() {
     int jump_counter = 0;
     bool new_level = true;
 
+    enemy1.enemy.setPosition(500, 805);
+
+    enemy1.enemy.setFillColor(Color::Green);
+    enemy1.enemy.setSize(Vector2f(30, 50));
+    enemy1.enemy.setOutlineThickness(3.f);
+    enemy1.enemy.setOutlineColor(Color::White);
+
+    Clock damge;
     while (window.isOpen()) {
         sf::Event event;
         clock.restart();
@@ -2672,6 +2716,8 @@ int main() {
         if (!isPaused) {
             non_negative(wizard.hp);
             non_negative(wizard.mana);
+
+            setup_enemy(wizard, enemy1, damge);
 
             view.setCenter(wizard.wizard.getPosition().x, 540);
 
@@ -2814,7 +2860,7 @@ int main() {
                 get_damaged(animation, deltaTime, wizard);
                 //cout << wizard.hp << endl;
                 //boss_fight(wizard, wiz_in_area);
-                cout << wizard.wizard.getPosition().x << "\\" << wizard.wizard.getPosition().y << endl;
+                //cout << wizard.wizard.getPosition().x << "\\" << wizard.wizard.getPosition().y << endl;
                 //9127.25\805
                 if (wizard.hp == 0)
                 {
@@ -2868,7 +2914,7 @@ int main() {
                 get_damaged(animation, deltaTime, wizard);
                 //cout << wizard.hp << endl;
                 //boss_fight(wizard, wiz_in_area);
-                cout << wizard.wizard.getPosition().x << "\\" << wizard.wizard.getPosition().y << endl;
+                //cout << wizard.wizard.getPosition().x << "\\" << wizard.wizard.getPosition().y << endl;
                 //9127.25\805
                 if (wizard.hp == 0)
                 {
@@ -3001,7 +3047,7 @@ int main() {
                 fireball.shape.setTexture(fireball.AbilityTexture);
                 window.draw(fireball.shape);
             }
-
+            window.draw(enemy1.enemy);
             window.draw(ui.UI);
             window.draw(ui.pause_icon);
             window.draw(ui.holder);
