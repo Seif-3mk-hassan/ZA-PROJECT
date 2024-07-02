@@ -1178,7 +1178,11 @@ struct npcs {
 
 struct enemies {
     Sprite enemy;
-    Texture enemy_tx;
+    Texture enemy_tx_ide;
+    Texture enemy_tx_run_right;
+    Texture enemy_tx_run_left;
+    Texture enemy_tx_attack;
+    Texture enemy_tx_attack_lift;
     int hp = 100;
     int damage = 25;
     int max_hp = 100;
@@ -1187,6 +1191,8 @@ struct enemies {
     int i = 0;
     bool ide = true;
     bool attack = false;
+    bool run = false;
+    bool looking_right;
     enemies() {
         enemy.setPosition(Vector2f(550, 770)); // Initialize Y position to 770
     }
@@ -1197,11 +1203,19 @@ vector<enemies> enemies_list;
 //    int hp = 100;
 //    // Add other wizard properties if needed
 //};
+void load_tx(enemies& enemy) {
+    enemy.enemy_tx_ide.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (1).png");
+    /* enemy.enemy_tx_attack.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (3).png");*/
+    enemy.enemy_tx_run_left.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (2)(1)(1).png");
+    enemy.enemy_tx_run_right.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (2).png");
+    enemy.enemy_tx_attack.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (3).png");
+    enemy.enemy_tx_attack_lift.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (3)(1)(1).png");
+}
 
 void ide_animation(enemies& enemy, float dt) {
-    enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (1).png");
-    enemy.enemy.setTexture(enemy.enemy_tx);
+
     enemy.enemy.setScale(2.f, 2.f);
+    enemy.enemy.setTexture(enemy.enemy_tx_ide);
     if (enemy.timer < 0) {
         enemy.i++;
         if (enemy.i >= 8) {
@@ -1214,13 +1228,15 @@ void ide_animation(enemies& enemy, float dt) {
     else {
         enemy.timer -= dt;
     }
+
 }
 
 void run_animation(enemies& enemy, status& wizard, float dt) {
+
     enemy.enemy.setScale(2.f, 2.f);
     if (wizard.wizard.getPosition().x > enemy.enemy.getPosition().x) {
-        enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (2).png");
-        enemy.enemy.setTexture(enemy.enemy_tx);
+
+        enemy.enemy.setTexture(enemy.enemy_tx_run_right);
         int num = 55;
         if (enemy.timer < 0) {
             enemy.i++;
@@ -1238,10 +1254,12 @@ void run_animation(enemies& enemy, status& wizard, float dt) {
         else {
             enemy.timer -= dt;
         }
+
+
     }
     else {
-        enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (2)(1)(1).png");
-        enemy.enemy.setTexture(enemy.enemy_tx);
+
+        enemy.enemy.setTexture(enemy.enemy_tx_run_left);
         int num = 55;
         if (enemy.timer < 0) {
             enemy.i--;
@@ -1259,60 +1277,65 @@ void run_animation(enemies& enemy, status& wizard, float dt) {
         else {
             enemy.timer -= dt;
         }
+
     }
+
+
 }
 
 void attack_animation(enemies& enemy, status& wizard, float dt) {
-    if (enemy.attack) {
-        enemy.enemy.setScale(1.5f, 1.5f);
-        if (wizard.wizard.getPosition().x > enemy.enemy.getPosition().x) {
-            enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (3).png");
-            enemy.enemy.setTexture(enemy.enemy_tx);
-            int num = 130;
-            if (enemy.timer < 0) {
-                enemy.i--;
-                if (enemy.i <= 0) {
-                    enemy.ide = false;
-                    enemy.i = 4;
-                    num = 130;
-                    enemy.attack = false;
-                }
+    enemy.enemy.setScale(1.5f, 1.5f);
+
+    if (wizard.wizard.getPosition().x > enemy.enemy.getPosition().x) {
+
+        enemy.enemy.setTexture(enemy.enemy_tx_attack);
+        int num = 130;
+        if (enemy.timer < 0) {
+            enemy.i--;
+            if (enemy.i <= 0) {
+                enemy.ide = false;
+                enemy.i = 4;
+                num = 130;
+                enemy.attack = false;
+            }
+            if (enemy.enemy.getGlobalBounds().intersects(wizard.wizard.getGlobalBounds())) {
+                //wizard.hp -= enemy.damage; // Handle wizard damage
+            }
+            enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 130, 90));
+            enemy.timer = enemy.delay;
+        }
+        else {
+            enemy.timer -= dt;
+        }
+
+    }
+    else {
+
+        enemy.enemy.setTexture(enemy.enemy_tx_attack_lift);
+        int num = 130;
+        if (enemy.timer < 0) {
+            enemy.i++;
+            if (enemy.i >= 5) {
+                enemy.ide = false;
+                enemy.i = 0;
+                num = 130;
+                enemy.attack = false;
+            }
+            if (enemy.i > 4) {
+                num = 130;
                 if (enemy.enemy.getGlobalBounds().intersects(wizard.wizard.getGlobalBounds())) {
                     //wizard.hp -= enemy.damage; // Handle wizard damage
                 }
-                enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 130, 90));
-                enemy.timer = enemy.delay;
             }
-            else {
-                enemy.timer -= dt;
-            }
+            enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 130, 90));
+            enemy.timer = enemy.delay;
         }
         else {
-            enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (3)(1)(1).png");
-            enemy.enemy.setTexture(enemy.enemy_tx);
-            int num = 130;
-            if (enemy.timer < 0) {
-                enemy.i++;
-                if (enemy.i >= 5) {
-                    enemy.ide = false;
-                    enemy.i = 0;
-                    num = 130;
-                    enemy.attack = false;
-                }
-                if (enemy.i > 4) {
-                    num = 130;
-                    if (enemy.enemy.getGlobalBounds().intersects(wizard.wizard.getGlobalBounds())) {
-                        //wizard.hp -= enemy.damage; // Handle wizard damage
-                    }
-                }
-                enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 130, 90));
-                enemy.timer = enemy.delay;
-            }
-            else {
-                enemy.timer -= dt;
-            }
+            enemy.timer -= dt;
         }
+
     }
+
 }
 
 void setup_enemy(status& wizard, enemies& enemy, Clock& damageClock, float dt) {
@@ -1321,12 +1344,19 @@ void setup_enemy(status& wizard, enemies& enemy, Clock& damageClock, float dt) {
     float distance = abs(wiz_pos - enemy_pos);
 
     if (distance <= 300 && distance >= 30) {
+        /*check_animation(enemy);*/
+        enemy.run = true;
+        enemy.ide = false;
+        enemy.attack = false;
         run_animation(enemy, wizard, dt);
         int direction = wiz_pos - enemy_pos;
         float movementSpeed = 0.1f * (direction / abs(direction)); // Normalize direction
         enemy.enemy.move(movementSpeed, 0);
     }
     else if (distance <= 30) {
+        /*check_animation(enemy);*/
+        enemy.run = false;
+        enemy.ide = false;
         //enemy.attack = false;
         attack_animation(enemy, wizard, dt);
         if (damageClock.getElapsedTime().asSeconds() >= 1.5f && abs(wizard.wizard.getPosition().y - enemy.enemy.getPosition().y) < 50) {
@@ -1336,6 +1366,9 @@ void setup_enemy(status& wizard, enemies& enemy, Clock& damageClock, float dt) {
         }
     }
     else {
+        /*check_animation(enemy);*/
+        enemy.attack = false;
+        enemy.run = false;
         enemy.ide = true;
         ide_animation(enemy, dt);
     }
@@ -1346,6 +1379,19 @@ void update_enemies(status& wizard, std::vector<enemies>& enemies_list, Clock& d
     for (auto it = enemies_list.begin(); it != enemies_list.end(); ) {
         setup_enemy(wizard, *it, damageClock, dt);
         if (it->hp <= 0) {
+            wizard.enemy_death_counter++;
+            wizard.enemy_death_counter_for_show++;
+            if (wizard.enemy_death_counter % wizard.the_divisor == 0)
+            {
+                wizard.level++;
+                wizard.the_divisor += 2;
+                /* enemy.enemy_max_hp += 50;*/
+
+                wizard.if_levelup = true;
+                wizard.enemy_death_counter = 0;
+            }
+            it->max_hp += 50;
+            it->hp = it->max_hp;
             it = enemies_list.erase(it);
         }
         else {
@@ -2086,7 +2132,7 @@ void flash_ability(status& wizard, int& counter, int& ftime) {
         // You can define the facing direction as the movement direction (left or right)
         wizard.timerf = true;
         ftime = wizard.flash_cooldown;
-        float flash_direction = Keyboard::isKeyPressed(Keyboard::Right) ? 1.0f : -1.0f;
+        float flash_direction = Keyboard::isKeyPressed(Keyboard::D) ? 1.0f : -1.0f;
 
         // Calculate the new position after flashing
         Vector2f new_position = wizard.wizard.getPosition() + Vector2f(flash_direction * wizard.flash_distance, 0);
@@ -2171,6 +2217,13 @@ void activate_fire_ability(status& wizard, npcs& enemy, Clock& firetime, int& co
                 else if (ui.getGlobalBounds().intersects(boss.shape.getGlobalBounds()))
                 {
                     boss.Health -= wizard.fire_damage;
+                }
+                for (auto& enemy : enemies_list) {
+                    if (ui.getGlobalBounds().intersects(enemy.enemy.getGlobalBounds())) {
+                        enemy.hp -= wizard.fire_damage; // Decrease enemy health by 10
+                        /*ishit_enemy = true;*/
+                        break;
+                    }
                 }
 
                 if (counter == 4)
@@ -3202,14 +3255,14 @@ int main() {
     //---------------------------------------------
     Clock damageClock;
 
-    enemies enemy5[20];
+    enemies enemy5;
+    load_tx(enemy5);
     int num = 500;
-    for (int i = 0; i < 20; i++)
-    {
-        enemy5[i].enemy.setPosition(num, 770);
-        enemies_list.push_back(enemy5[i]);
-        num += 200;
-    }
+    int i_enemy = 0;
+
+    Clock enemies_C;
+
+    
     //--------------------------------------------
 
 
@@ -3411,6 +3464,19 @@ int main() {
             if (!level1_completed && level2_completed && level3_completed)
             {
                 ///----------------------------------------
+                if (enemies_C.getElapsedTime().asSeconds() > 20)
+                {
+                    if (wizard.enemy_death_counter < 5)
+                    {
+                        for (int i = i_enemy; i < 5 + i_enemy; i++) {
+                            enemy5.enemy.setPosition(num, 770);
+                            enemies_list.push_back(enemy5);
+                            num += 200;
+                        }
+                        i_enemy += 5;
+                    }
+                    enemies_C.restart();
+                }
 
                 update_enemies(wizard, enemies_list, damageClock, deltaTime);
                 ///-------------------------------------------
