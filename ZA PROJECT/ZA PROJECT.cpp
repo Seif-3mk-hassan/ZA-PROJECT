@@ -49,7 +49,6 @@ struct status {
 }wizard;
 
 
-
 //sounds
 struct SOUNd
 {
@@ -109,76 +108,76 @@ struct SOUNd
 //function sound
 void SOUND(SOUNd& sound) {
     //music
-    sound.main_menu.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\music\\videoplayback(7).wav");
+    sound.main_menu.loadFromFile("./assets/music/music/music/videoplayback(7).wav");
     sound.mainMenu.setBuffer(sound.main_menu);
     sound.mainMenu.setVolume(40);
     sound.mainMenu.setLoop(true);
     sound.mainMenu.play();
 
-    sound.back_sound.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\music\\videoplayback (11).wav");
+    sound.back_sound.loadFromFile("./assets/music/music/music/videoplayback (11).wav");
     sound.backSound.setBuffer(sound.back_sound);
     sound.backSound.setVolume(50);
     sound.backSound.setLoop(true);
     sound.backSound.play();
     //bullet
-    sound.bullet_sound.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\bulllet.wav");
+    sound.bullet_sound.loadFromFile("./assets/music/music/sound effect/bulllet.wav");
     sound.bulletSound.setBuffer(sound.bullet_sound);
     sound.bulletSound.setVolume(150);
     //ability1
-    sound.ability_1.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\sukuna.wav");
+    sound.ability_1.loadFromFile("./assets/music/sukuna.wav");
     sound.ability1.setBuffer(sound.ability_1);
     sound.ability1.setVolume(90);
     //ability2
-    sound.ability_2.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\heal.wav");
+    sound.ability_2.loadFromFile("./assets/music/heal.wav");
     sound.ability2.setBuffer(sound.ability_2);
     sound.ability2.setVolume(90);
     //ability3
-    sound.ability_3.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\ability 3.wav");
+    sound.ability_3.loadFromFile("./assets/music/music/sound effect/ability 3.wav");
     sound.ability3.setBuffer(sound.ability_3);
     sound.ability3.setVolume(90);
     //ability4
-    sound.ability_4.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\fire.wav");
+    sound.ability_4.loadFromFile("./assets/music/fire.wav");
     sound.ability4.setBuffer(sound.ability_4);
     sound.ability4.setVolume(90);
     //jump
-    sound.jump_sound.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\30_Jump_03.wav");
+    sound.jump_sound.loadFromFile("./assets/music/music/sound effect/30_Jump_03.wav");
     sound.jumpSound.setBuffer(sound.jump_sound);
     sound.jumpSound.setVolume(150);
     //levelup
-    sound.levelup.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\48_Speed_up_02.wav");
+    sound.levelup.loadFromFile("./assets/music/music/sound effect/48_Speed_up_02.wav");
     sound.levelup_sound.setBuffer(sound.levelup);
     sound.levelup_sound.setVolume(90);
     //use item
-    sound.use_item.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\051_use_item_01.wav");
+    sound.use_item.loadFromFile("./assets/music/music/sound effect/051_use_item_01.wav");
     sound.useItem.setBuffer(sound.use_item);
     sound.useItem.setVolume(80);
     //paused
-    sound.paused_sound.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\092_Pause_04.wav");
+    sound.paused_sound.loadFromFile("./assets/music/music/sound effect/092_Pause_04.wav");
     sound.pausedSound.setBuffer(sound.paused_sound);
     sound.pausedSound.setVolume(80);
     //paused
-    sound.unpaused_sound.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\098_Unpause_04.wav");
+    sound.unpaused_sound.loadFromFile("./assets/music/music/sound effect/098_Unpause_04.wav");
     sound.unpausedSound.setBuffer(sound.unpaused_sound);
     sound.unpausedSound.setVolume(80);
     //hover
-    sound.hover.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\music\\sound effect\\001_Hover_01.wav");
+    sound.hover.loadFromFile("./assets/music/music/sound effect/001_Hover_01.wav");
     sound.hover_sound.setBuffer(sound.hover);
     sound.hover_sound.setVolume(60);
 
     //boss
-    sound.boss_hit.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\08_Bite_04.wav");
+    sound.boss_hit.loadFromFile("./assets/music/08_Bite_04.wav");
     sound.bossHit.setBuffer(sound.boss_hit);
     sound.bossHit.setVolume(60);
     //bossability1
-    sound.boss_ability1.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\04_Fire_explosion_04_medium.wav");
+    sound.boss_ability1.loadFromFile("./assets/music/04_Fire_explosion_04_medium.wav");
     sound.bossAbility1.setBuffer(sound.boss_ability1);
     sound.bossAbility1.setVolume(90);
     //bossability2
-    sound.boss_Ability2.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\04_Fire_explosion_04_medium.wav");
+    sound.boss_Ability2.loadFromFile("./assets/music/04_Fire_explosion_04_medium.wav");
     sound.bossAbility2.setBuffer(sound.boss_Ability2);
     sound.bossAbility2.setVolume(90);
     //bossdeath
-    sound.boss_death.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\music\\10_human_special_atk_1.wav");
+    sound.boss_death.loadFromFile("./assets/music/10_human_special_atk_1.wav");
     sound.bossDeath.setBuffer(sound.boss_death);
     sound.bossDeath.setVolume(150);
 }
@@ -228,8 +227,12 @@ const float min_distance_to_main = 150.f;
 const float gravity = 300;
 const float floorHeight = 100.0f;
 const int maxBullets = 5;
-//static sf::Clock fireClock; lw 3ayzo yedrab w howwa wa2f bas
-
+////////////////////////////////
+const float shooting_ability = 5;
+const float abilityb2 = 8.5;
+const float distance_to_hit = 40.f;
+bool mappp = true;
+///////////////////////////////////
 enum BossState
 {
     Standing,
@@ -255,6 +258,8 @@ struct Boss
     float Health = 2000;
 };
 
+
+
 struct Bullllllet
 {
     sf::Sprite shape;
@@ -263,6 +268,8 @@ struct Bullllllet
     sf::Texture bulletTexture;
     float currentFrame;
 };
+
+
 
 //struct MainCharacter
 //{
@@ -294,14 +301,14 @@ struct Ability2
 
 void SetupBoss(Boss& boss, status& character)
 {
-    boss.standingTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\BossIdel.png");
-    boss.movingTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\BossMove.png");
-    boss.shootingTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Boss_shooting.png");
-    boss.ability_1Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\bossAbility.png");
+    boss.standingTexture.loadFromFile("./assets/BossIdel.png");
+    boss.movingTexture.loadFromFile("./assets/BossMove.png");
+    boss.shootingTexture.loadFromFile("./assets/Boss_shooting.png");
+    boss.ability_1Texture.loadFromFile("./assets/bossAbility.png");
 
     boss.shape.setSize(sf::Vector2f(w_boss, h_boss));
-    boss.shape.setPosition(9127, 600);
-    boss.shape.setScale(2.f, 2.f);
+    boss.shape.setPosition(9127, 850);
+    boss.shape.setScale(6.f, 6.f);
 
     boss.state = BossState::Standing;
 
@@ -314,7 +321,7 @@ void SetupBoss(Boss& boss, status& character)
 
 void setupBullet(Bullllllet& bullet)
 {
-    bullet.bulletTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\bullet.png");
+    bullet.bulletTexture.loadFromFile("./assets/bullet.png");
 
     bullet.shape.setTexture(bullet.bulletTexture);
     bullet.shape.setTextureRect(sf::IntRect(0, 0, 33.8, 15)); // Set initial frame
@@ -323,14 +330,14 @@ void setupBullet(Bullllllet& bullet)
 
 void setupFireball(Fireball& fireball)
 {
-    fireball.AbilityTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\fire_ball.png");
+    fireball.AbilityTexture.loadFromFile("./assets/fire_ball.png");
     fireball.shape.setTextureRect(sf::IntRect(0, 0, 31.875, 25));
     fireball.currentFrame = 0;
 }
 
 void setupAbility2(Ability2& ability)
 {
-    ability.AbilityTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\ability2.png");
+    ability.AbilityTexture.loadFromFile("./assets/ability2.png");
     ability.shape.setTextureRect(sf::IntRect(0, 0, 97, 34));
     ability.currentFrame = 0;
 }
@@ -351,6 +358,7 @@ void animateBoss(Boss& boss, status& character, float deltaTime)
 
     if (animation_ability_2.getElapsedTime().asSeconds() >= ability2)
     {
+
         boss.state = BossState::Ability_2;
         if (animation_ability_2.getElapsedTime().asSeconds() >= boss.frameDuration * 13 + ability2)
             animation_ability_2.restart();
@@ -385,12 +393,12 @@ void animateBoss(Boss& boss, status& character, float deltaTime)
 
     if (direction.x < 0)
     {
-        boss.shape.setScale(-2.f, 2.f);
+        boss.shape.setScale(-5.f, 5.f);
         boss.shape.setOrigin(w_boss / 2.f, 0);
     }
     else
     {
-        boss.shape.setScale(2.f, 2.f);
+        boss.shape.setScale(5.f, 5.f);
         boss.shape.setOrigin(w_boss / 2.f, 0);
     }
 
@@ -421,20 +429,34 @@ void animateBoss(Boss& boss, status& character, float deltaTime)
 
     if (boss.state == BossState::Ability_1 || boss.state == BossState::Ability_2)
     {
-        if (boss.elapsedTime >= boss.frameDuration)
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.25)
         {
-            boss.currentFrame = (boss.currentFrame + 1) % 13;
-            boss.shape.setTextureRect(sf::IntRect(boss.currentFrame * w_boss, 0, w_boss, h_boss));
-            boss.elapsedTime -= boss.frameDuration;
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 13)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss, 0, w_boss, h_boss));
+            fireB.restart();
         }
     }
     else
     {
-        if (boss.elapsedTime >= boss.frameDuration)
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.125)
         {
-            boss.currentFrame = (boss.currentFrame + 1) % 4;
-            boss.shape.setTextureRect(sf::IntRect(boss.currentFrame * w_boss, 0, w_boss, h_boss));
-            boss.elapsedTime -= boss.frameDuration;
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 4)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss, 0, w_boss, h_boss));
+            fireB.restart();
         }
     }
 }
@@ -504,7 +526,7 @@ void updateAbility2(Ability2& ability, status& character, float deltaTime)
                     animation.u_damage = 8;
                 }
             }
-            character.hp -= 400;
+            character.hp -= .18;
             ability.active = false;
         }
 
@@ -624,16 +646,16 @@ void fireBullet(Bullllllet* bullets, int& numBullets, Boss& boss, status& charac
         float length = sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
         sf::Vector2f aimDirNorm = aimDir / length;
 
-        bullet.shape.setPosition(boss.shape.getPosition().x, boss.shape.getPosition().y + h_boss / 3);
+        bullet.shape.setPosition(boss.shape.getPosition().x, boss.shape.getPosition().y + h_boss / 6);
 
         if (aimDir.x < 0)
         {
-            bullet.shape.setScale(1.f, 1.f);
+            bullet.shape.setScale(2.f, 2.f);
             bullet.shape.setOrigin(w_boss / 1.5f, 0);
         }
         else
         {
-            bullet.shape.setScale(-1.f, 1.f);
+            bullet.shape.setScale(-2.f, 2.f);
             bullet.shape.setOrigin(w_boss / 1.5f, 0);
         }
         bullet.timer.restart();
@@ -702,6 +724,386 @@ void fireBigFireball(Fireball& fireball, Boss& boss, status& character)
         if (direction.x < 0)
         {
             normalizedDirection = { -1.0f, 0.0f };
+            fireball.shape.setScale(-8.f, 8.f);
+            fireball.shape.setOrigin(w_boss / 2.5f, -12);
+        }
+        else
+        {
+            normalizedDirection = { 1.0f, 0.0f };
+            fireball.shape.setScale(8.f, 8.f);
+            fireball.shape.setOrigin(w_boss / 2.5f, -12);
+        }
+        fireball.velocity.x = normalizedDirection.x * bullet_speed;
+        fireball.velocity.y = normalizedDirection.y * bullet_speed;
+
+        fireball.active = true;
+    }
+    //sound.bossAbility1.play();
+}
+
+void activateAbility2(Ability2& ability, Boss& boss, status& character)
+{
+    if (ability.cooldownTimer.getElapsedTime().asSeconds() >= ability2 and boss.currentFrame == 8 and boss.state == BossState::Ability_2)
+    {
+        ability.active = true;
+
+        setupAbility2(ability);
+        ability.cooldownTimer.restart();
+
+        sf::Vector2f direction = character.wizard.getPosition() - boss.shape.getPosition();
+        sf::Vector2f normalizedDirection;
+
+        ability.shape.setPosition(boss.shape.getPosition().x, boss.shape.getPosition().y);
+
+        if (direction.x < 0)
+        {
+            normalizedDirection = { -1.0f, 0.0f };
+            ability.shape.setScale(-4.f, 4.f);
+            ability.shape.setOrigin(w_boss / 1.5f, -h_boss / 2.4);
+        }
+        else
+        {
+            normalizedDirection = { 1.0f, 0.0f };
+            ability.shape.setScale(4.f, 4.f);
+            ability.shape.setOrigin(w_boss / 1.5f, -h_boss / 2.4);
+        }
+        ability.velocity.x = normalizedDirection.x * bullet_speed;
+        ability.velocity.y = normalizedDirection.y * bullet_speed;
+
+
+    }
+}
+////////////////////////////////////////////
+enum Boss2State
+{
+    Standing2,
+    Moving2,
+    hitting2,
+    Ability_12,
+    Ability_22,
+    Dead2
+};
+struct Boss2
+{
+    sf::RectangleShape shape;
+    sf::Vector2f velocity;
+    sf::Texture standingTexture;
+    sf::Texture movingTexture;
+    sf::Texture shootingTexture;
+    sf::Texture ability_1Texture;
+    sf::Texture ability_2Texture;
+
+    Boss2State state;
+    int currentFrame;
+    float frameDuration;
+    float Health = 2000;
+};
+struct Ability
+{
+    sf::Sprite shape;
+    sf::Vector2f velocity;
+    sf::Clock cooldownTimer;
+    sf::Texture AbilityTexture;
+    int currentFrame;
+    bool active = false;
+};
+struct Abilityb2
+{
+    sf::Sprite shape;
+    sf::Vector2f velocity;
+    sf::Clock cooldownTimer;
+    sf::Texture AbilityTexture;
+    int currentFrame;
+    bool active = false;
+    sf::Vector2f position;
+};
+void SetupBoss2(Boss2& boss, status& character)
+{
+    boss.standingTexture.loadFromFile("./assets/idle.png");
+    boss.movingTexture.loadFromFile("./assets/run.png");
+    boss.shootingTexture.loadFromFile("./assets/attack.png");
+    boss.ability_1Texture.loadFromFile("./assets/shoot.png");
+    boss.ability_2Texture.loadFromFile("./assets/fly down.png");
+
+    boss.shape.setSize(sf::Vector2f(w_boss, h_boss));
+    boss.shape.setPosition(12000, 100);
+
+    boss.state = Boss2State::Standing2;
+
+    boss.currentFrame = 0;
+
+    boss.shape.setTexture(&boss.standingTexture);
+}
+void setupability_1(Ability& fireball)
+{
+    fireball.AbilityTexture.loadFromFile("./assets/ability_b2.png");
+    fireball.shape.setTextureRect(sf::IntRect(0, 0, 42, 34));
+    fireball.currentFrame = 0;
+}
+
+void setupability_2(Abilityb2& poison)
+{
+    poison.AbilityTexture.loadFromFile("./assets/ability2_b2.png");
+    poison.shape.setTextureRect(sf::IntRect(0, 0, 48, 64));
+    poison.currentFrame = 0;
+}
+
+void animateBoss2(Boss2& boss, status& character, float deltaTime)
+{
+    float distanceToMain = sqrt(pow(character.wizard.getPosition().x - boss.shape.getPosition().x, 2) +
+        pow(character.wizard.getPosition().y - boss.shape.getPosition().y, 2));
+
+    static sf::Clock animation_hitting;
+    static sf::Clock animation_ability_1;
+    static sf::Clock animation_ability_2;
+
+    bool hitting = 0;
+    bool ability_1 = 0;
+    bool ability_2 = 0;
+    static bool once = 1;
+
+
+    if (animation_ability_2.getElapsedTime().asSeconds() >= abilityb2 and once)
+    {
+        boss.state = Boss2State::Ability_22;
+        if (animation_ability_2.getElapsedTime().asSeconds() >= 0.25 * 16 + abilityb2)
+        {
+            once = false;
+            animation_ability_2.restart();
+        }
+    }
+    else if (animation_ability_1.getElapsedTime().asSeconds() >= shooting_ability and !ability_2)
+    {
+        boss.state = Boss2State::Ability_12;
+        if (animation_ability_1.getElapsedTime().asSeconds() >= 0.1258 * 6 + shooting_ability)
+            animation_ability_1.restart();
+    }
+    else if (!ability_1 and distanceToMain <= distance_to_hit and !ability_2)
+    {
+        boss.state = Boss2State::hitting2;
+    }
+    else if (distanceToMain <= distance_to_hit)
+    {
+        boss.state = Boss2State::Standing2;
+    }
+    else
+    {
+        if (!hitting and !ability_1 and !ability_2)
+        {
+            boss.state = Boss2State::Moving2;
+        }
+    }
+
+    sf::Vector2f direction = character.wizard.getPosition() - boss.shape.getPosition();
+
+    if (direction.x < 0)
+    {
+        boss.shape.setScale(-10.f, 10.f);
+        boss.shape.setOrigin(w_boss / 2.f, 0);
+    }
+    else
+    {
+        boss.shape.setScale(10.f, 10.f);
+        boss.shape.setOrigin(w_boss / 2.f, 0);
+    }
+
+
+    switch (boss.state)
+    {
+    case Boss2State::Standing2:
+        boss.shape.setTexture(&boss.standingTexture);
+        break;
+    case Boss2State::Moving2:
+        boss.shape.setTexture(&boss.movingTexture);
+        break;
+    case Boss2State::hitting2:
+        boss.shape.setTexture(&boss.shootingTexture);
+        hitting = 1;
+        break;
+    case Boss2State::Ability_12:
+        boss.shape.setTexture(&boss.ability_1Texture);
+        ability_1 = 1;
+        break;
+    case Boss2State::Ability_22:
+        boss.shape.setTexture(&boss.ability_2Texture);
+        ability_2 = 1;
+        break;
+    }
+
+
+    if (boss.state == Boss2State::Ability_22)
+    {
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.1)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 2)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss, 0, w_boss, h_boss));
+            fireB.restart();
+        }
+    }
+    else if (boss.state == Boss2State::Ability_12)
+    {
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.2)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 6)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss, 0, w_boss, h_boss));
+            fireB.restart();
+        }
+    }
+    else if (boss.state == Boss2State::hitting2)
+    {
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.25)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 4)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss, 0, w_boss, h_boss));
+            fireB.restart();
+        }
+    }
+    else
+    {
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.2)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 3)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss, 0, w_boss, h_boss));
+            fireB.restart();
+        }
+    }
+
+}
+void animateability_1(Ability& fireball, Boss2& boss)
+{
+    static sf::Clock fireB;
+
+    if (fireB.getElapsedTime().asSeconds() >= 0.2)
+    {
+        fireball.currentFrame += 1;
+
+        if (fireball.currentFrame >= 8)
+        {
+            fireball.currentFrame = 4;
+        }
+        fireball.shape.setTextureRect(sf::IntRect((int)fireball.currentFrame * 42, 0, 42, 34));
+        fireB.restart();
+    }
+}
+void animateability_2(Abilityb2& poison, status& character)
+{
+    static sf::Clock fireB;
+
+    if (fireB.getElapsedTime().asSeconds() >= 0.25)
+    {
+        poison.currentFrame += 1;
+
+        if (poison.currentFrame >= 16)
+        {
+            poison.currentFrame = 0;
+        }
+        poison.shape.setTextureRect(sf::IntRect((int)poison.currentFrame * 48, 0, 48, 64));
+        fireB.restart();
+    }
+}
+
+void updateability_1(Ability& fireball, status& character, float deltaTime)
+{
+    if (fireball.active)
+    {
+        fireball.shape.move(fireball.velocity * deltaTime);
+
+        if (fireball.shape.getGlobalBounds().intersects(character.wizard.getGlobalBounds()))
+        {
+            character.hp -= 200;
+            fireball.active = false;
+        }
+    }
+}
+void updateability_2(Abilityb2& poison, status& character)
+{
+    if (poison.active)
+    {
+        static sf::Clock activation;
+        if (activation.getElapsedTime().asSeconds() >= 0.25 * 16)
+        {
+            activation.restart();
+            poison.active = false;
+        }
+    }
+}
+void moveBoss2(Boss2& boss, status& character, float deltaTime)
+{
+    if (boss.state != BossState::Ability_1 and boss.state != BossState::Ability_2)
+    {
+        sf::Vector2f direction = character.wizard.getPosition() - boss.shape.getPosition();
+        float length = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+        sf::Vector2f normalizedDirection = direction / length;
+
+        boss.velocity = normalizedDirection * boss_speed * deltaTime * ch_speed;
+
+        if (length <= distance_to_hit)
+        {
+            boss.velocity = sf::Vector2f(0.f, 0.f);
+        }
+
+        boss.velocity.y += 0 * deltaTime;
+
+        boss.shape.move(boss.velocity);
+    }
+
+    if (boss.shape.getPosition().y + boss.shape.getSize().y > Window_height - floorHeight)
+    {
+        boss.shape.setPosition(boss.shape.getPosition().x, Window_height - floorHeight - boss.shape.getSize().y);
+        boss.velocity.y = 0;
+    }
+
+    //if (boss.shape.getPosition().x < 0)
+    //{
+    //    boss.shape.setPosition(0, boss.shape.getPosition().y);
+    //}
+   /* if (boss.shape.getPosition().x + boss.shape.getSize().x > Window_width)
+    {
+        boss.shape.setPosition(Window_width - boss.shape.getSize().x, boss.shape.getPosition().y);
+    }*/
+}
+void fireability_1(Ability& fireball, Boss2& boss, status& character)
+{
+    if (fireball.cooldownTimer.getElapsedTime().asSeconds() >= shooting_ability and boss.currentFrame == 2 and boss.state == Boss2State::Ability_12)
+    {
+        setupability_1(fireball);
+        fireball.cooldownTimer.restart();
+
+        sf::Vector2f direction = character.wizard.getPosition() - boss.shape.getPosition();
+        sf::Vector2f normalizedDirection;
+        fireball.shape.setPosition(boss.shape.getPosition().x, boss.shape.getPosition().y);
+
+        if (direction.x < 0)
+        {
+            normalizedDirection = { -1.0f, 0.0f };
             fireball.shape.setScale(-2.f, 2.f);
             fireball.shape.setOrigin(w_boss / 2.5f, 0);
         }
@@ -716,39 +1118,35 @@ void fireBigFireball(Fireball& fireball, Boss& boss, status& character)
 
         fireball.active = true;
     }
-    //sound.bossAbility1.play();
 }
-
-void activateAbility2(Ability2& ability, Boss& boss, status& character)
+void ability_2(Abilityb2& poison, Boss2& boss, status& character)
 {
-    if (ability.cooldownTimer.getElapsedTime().asSeconds() >= ability2 and boss.currentFrame == 8 and boss.state == BossState::Ability_2)
+    if (poison.cooldownTimer.getElapsedTime().asSeconds() >= abilityb2 and boss.state == Boss2State::Ability_22)
     {
-        setupAbility2(ability);
-        ability.cooldownTimer.restart();
-
-        sf::Vector2f direction = character.wizard.getPosition() - boss.shape.getPosition();
-        sf::Vector2f normalizedDirection;
-
-        ability.shape.setPosition(boss.shape.getPosition().x, boss.shape.getPosition().y);
-
-        if (direction.x < 0)
-        {
-            normalizedDirection = { -1.0f, 0.0f };
-            ability.shape.setScale(-1.f, 1.f);
-            ability.shape.setOrigin(w_boss / 1.5f, -h_boss / 4);
-        }
-        else
-        {
-            normalizedDirection = { 1.0f, 0.0f };
-            ability.shape.setScale(1.f, 1.f);
-            ability.shape.setOrigin(w_boss / 1.5f, -h_boss / 4);
-        }
-        ability.velocity.x = normalizedDirection.x * bullet_speed;
-        ability.velocity.y = normalizedDirection.y * bullet_speed;
-
-        ability.active = true;
+        setupability_2(poison);
+        poison.cooldownTimer.restart();
+        poison.position = character.wizard.getPosition();
+        poison.active = true;
     }
 }
+
+void bossHit(Boss2& boss, status& character)
+{
+    float distanceToMain = sqrt(pow(character.wizard.getPosition().x - boss.shape.getPosition().x, 2) +
+        pow(character.wizard.getPosition().y - boss.shape.getPosition().y, 2));
+
+    if (distanceToMain <= distance_to_hit)
+    {
+        boss.state = Boss2State::hitting2;
+        if (boss.currentFrame == 3)
+        {
+            character.hp -= 50;
+        }
+    }
+}
+
+
+
 
 //items 
 struct itemssssss
@@ -776,41 +1174,192 @@ struct npcs {
     float damage_done = 50;
 } enemy;
 
-//enemies---->seif_hassan
-struct enemies
-{
-    RectangleShape enemy;
+
+
+struct enemies {
+    Sprite enemy;
+    Texture enemy_tx;
     int hp = 100;
-}enemy1;
-
-void setup_enemy(status& wizard, enemies& enemy, Clock& damge) {
-    float wiz_pos = wizard.wizard.getPosition().x;
-    float enemy_pos = enemy.enemy.getPosition().x;
-    if (abs(wiz_pos - enemy_pos) <= 300 && abs(wiz_pos - enemy_pos) >= 30)
-    {
-        //enemy.enemy.setPosition(enemy.enemy.getPosition().x, 805);
-        //enemy.enemy.setFillColor(Color::Blue);
-        int direction = wiz_pos - enemy_pos;
-        direction /= sqrt(direction * direction + 0); // Normalize the direction vector
-        enemy.enemy.move(0.1 * direction, 0);
-
+    int damage = 25;
+    int max_hp = 100;
+    float delay = 0.25;
+    float timer = 0;
+    int i = 0;
+    bool ide = true;
+    bool attack = false;
+    enemies() {
+        enemy.setPosition(Vector2f(550, 770)); // Initialize Y position to 770
     }
-    else if (abs(wiz_pos - enemy_pos) <= 30)
-    {
-        enemy.enemy.move(0, 0);
-        enemy.enemy.setFillColor(Color::Blue);
-        if (damge.getElapsedTime().asSeconds() >= 1.5 && abs(wizard.wizard.getPosition().y - enemy.enemy.getPosition().y) < 50)
-        {
-            damge.restart();
-            wizard.hp -= 100;
+};
+vector<enemies> enemies_list;
+//struct status {
+//    Sprite wizard;
+//    int hp = 100;
+//    // Add other wizard properties if needed
+//};
+
+void ide_animation(enemies& enemy, float dt) {
+    enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (1).png");
+    enemy.enemy.setTexture(enemy.enemy_tx);
+    enemy.enemy.setScale(2.f, 2.f);
+    if (enemy.timer < 0) {
+        enemy.i++;
+        if (enemy.i >= 8) {
+            enemy.ide = false;
+            enemy.i = 0;
+        }
+        enemy.enemy.setTextureRect(IntRect((enemy.i * 50), 0, 50, 60));
+        enemy.timer = enemy.delay;
+    }
+    else {
+        enemy.timer -= dt;
+    }
+}
+
+void run_animation(enemies& enemy, status& wizard, float dt) {
+    enemy.enemy.setScale(2.f, 2.f);
+    if (wizard.wizard.getPosition().x > enemy.enemy.getPosition().x) {
+        enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (2).png");
+        enemy.enemy.setTexture(enemy.enemy_tx);
+        int num = 55;
+        if (enemy.timer < 0) {
+            enemy.i++;
+            if (enemy.i >= 8) {
+                enemy.ide = false;
+                enemy.i = 0;
+                num = 55;
+            }
+            if (enemy.i > 4) {
+                num = 56;
+            }
+            enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 55, 60));
+            enemy.timer = enemy.delay;
+        }
+        else {
+            enemy.timer -= dt;
         }
     }
-    else
-    {
-        enemy.enemy.setFillColor(Color::Green);
+    else {
+        enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (2)(1)(1).png");
+        enemy.enemy.setTexture(enemy.enemy_tx);
+        int num = 55;
+        if (enemy.timer < 0) {
+            enemy.i--;
+            if (enemy.i <= 0) {
+                enemy.ide = false;
+                enemy.i = 7;
+                num = 55;
+            }
+            if (enemy.i < 4) {
+                num = 55;
+            }
+            enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 55, 60));
+            enemy.timer = enemy.delay;
+        }
+        else {
+            enemy.timer -= dt;
+        }
     }
-
 }
+
+void attack_animation(enemies& enemy, status& wizard, float dt) {
+    if (enemy.attack) {
+        enemy.enemy.setScale(1.5f, 1.5f);
+        if (wizard.wizard.getPosition().x > enemy.enemy.getPosition().x) {
+            enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (3).png");
+            enemy.enemy.setTexture(enemy.enemy_tx);
+            int num = 130;
+            if (enemy.timer < 0) {
+                enemy.i--;
+                if (enemy.i <= 0) {
+                    enemy.ide = false;
+                    enemy.i = 4;
+                    num = 130;
+                    enemy.attack = false;
+                }
+                if (enemy.enemy.getGlobalBounds().intersects(wizard.wizard.getGlobalBounds())) {
+                    //wizard.hp -= enemy.damage; // Handle wizard damage
+                }
+                enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 130, 90));
+                enemy.timer = enemy.delay;
+            }
+            else {
+                enemy.timer -= dt;
+            }
+        }
+        else {
+            enemy.enemy_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet (3)(1)(1).png");
+            enemy.enemy.setTexture(enemy.enemy_tx);
+            int num = 130;
+            if (enemy.timer < 0) {
+                enemy.i++;
+                if (enemy.i >= 5) {
+                    enemy.ide = false;
+                    enemy.i = 0;
+                    num = 130;
+                    enemy.attack = false;
+                }
+                if (enemy.i > 4) {
+                    num = 130;
+                    if (enemy.enemy.getGlobalBounds().intersects(wizard.wizard.getGlobalBounds())) {
+                        //wizard.hp -= enemy.damage; // Handle wizard damage
+                    }
+                }
+                enemy.enemy.setTextureRect(IntRect((enemy.i * num), 0, 130, 90));
+                enemy.timer = enemy.delay;
+            }
+            else {
+                enemy.timer -= dt;
+            }
+        }
+    }
+}
+
+void setup_enemy(status& wizard, enemies& enemy, Clock& damageClock, float dt) {
+    float wiz_pos = wizard.wizard.getPosition().x;
+    float enemy_pos = enemy.enemy.getPosition().x;
+    float distance = abs(wiz_pos - enemy_pos);
+
+    if (distance <= 300 && distance >= 30) {
+        run_animation(enemy, wizard, dt);
+        int direction = wiz_pos - enemy_pos;
+        float movementSpeed = 0.1f * (direction / abs(direction)); // Normalize direction
+        enemy.enemy.move(movementSpeed, 0);
+    }
+    else if (distance <= 30) {
+        //enemy.attack = false;
+        attack_animation(enemy, wizard, dt);
+        if (damageClock.getElapsedTime().asSeconds() >= 1.5f && abs(wizard.wizard.getPosition().y - enemy.enemy.getPosition().y) < 50) {
+            enemy.attack = true;
+            damageClock.restart();
+            wizard.hp -= enemy.damage; // Apply damage
+        }
+    }
+    else {
+        enemy.ide = true;
+        ide_animation(enemy, dt);
+    }
+}
+
+void update_enemies(status& wizard, std::vector<enemies>& enemies_list, Clock& damageClock, float dt)
+{
+    for (auto it = enemies_list.begin(); it != enemies_list.end(); ) {
+        setup_enemy(wizard, *it, damageClock, dt);
+        if (it->hp <= 0) {
+            it = enemies_list.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
+
+
+
+
+
+
 
 struct maap
 {
@@ -903,25 +1452,22 @@ void block_tree(maap2& map2);
 void Game_play(RenderWindow& window, maap& map, maap2& map2, bool& level1_completed, bool& level2_completed, bool& level3_completed) {
     if (!level1_completed && level2_completed && level3_completed)
     {
-        map.background.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\map background.png");
+        map.background.loadFromFile("./assets/map background.png");
 
         //map.background.setSmooth(true);
 
         map.background_sprite.setTexture(map.background);
 
-        map.ground_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Sprite-000111.png");
+        map.ground_Texture.loadFromFile("./assets/Sprite-000111.png");
 
 
         map.ground_sprite.setTexture(map.ground_Texture);
 
 
         // blocksgetGlobalBounds()_Texture.loadFromFile("E:\\Enas\\Project\\SFML\\ASSETS\\blockgetGlobalBounds().png");
-        map.blockTriangle_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Sprite-0005.png");
-        map.blockSmall_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Sprite-0004.png");
-        map.blocksBig_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Sprite-0002.png");
-        map.blocksFire_Texture.loadFromFile("E:\\Enas\\Project\\SFML\\ASSETS\\fire.png");
-        map.blocksTriangleLeft_Texture.loadFromFile("E:\\Enas\\Project\\SFML\\ASSETS\\blocktrileft.png");
-        map.blocksTriangleRight_Texture.loadFromFile("E:\\Enas\\Project\\SFML\\ASSETS\\blocktriright.png");
+        map.blockTriangle_Texture.loadFromFile("./assets/Sprite-0005.png");
+        map.blockSmall_Texture.loadFromFile("./assets/Sprite-0004.png");
+        map.blocksBig_Texture.loadFromFile("./assets/Sprite-0002.png");
 
         //block_getGlobalBounds() (blocks);
        // for (int i = 0; i < 20; i++) {
@@ -975,27 +1521,27 @@ void Game_play(RenderWindow& window, maap& map, maap2& map2, bool& level1_comple
     }
     else if (level1_completed && !level2_completed && level3_completed)
     {
-        map2.background.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-002.png");
+        map2.background.loadFromFile("./assets/map2 bg.png");
 
         //map2.background.setSmooth(true);
 
         map2.background_sprite.setTexture(map2.background);
 
-        map2.ground_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-0008.png");
+        map2.ground_Texture.loadFromFile("./assets/Sprite-0008.png");
 
 
         map2.ground_sprite.setTexture(map2.ground_Texture);
 
 
         // blocksgetGlobalBounds()_Texture.loadFromFile("E:\\Enas\\Project\\SFML\\ASSETS\\blockgetGlobalBounds().png");
-        map2.blockTriangle_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-00015.png");
-        map2.blockSmall_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-009.png");
-        map2.blocksBig_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-0002.png");
-        map2.fake_block.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-0010.png");
-        map2.blocksTriangleLeft_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-0011.png");
-        map2.blocksTriangleRight_Texture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-0014.png");
-        map2.spikes.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-00016.png");
-        map2.block_Tree.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication10\\ConsoleApplication10\\assets\\Sprite-0013.png");
+        map2.blockTriangle_Texture.loadFromFile("./assets/Sprite-00015.png");
+        map2.blockSmall_Texture.loadFromFile("./assets/Sprite-009.png");
+        map2.blocksBig_Texture.loadFromFile("./assets/Sprite-0002.png");
+        map2.fake_block.loadFromFile("./assets/Sprite-0010.png");
+        map2.blocksTriangleLeft_Texture.loadFromFile("./assets/Sprite-0011.png");
+        map2.blocksTriangleRight_Texture.loadFromFile("./assets/Sprite-0014.png");
+        map2.spikes.loadFromFile("./assets/Sprite-00016.png");
+        map2.block_Tree.loadFromFile("./assets/Sprite-0013.png");
         //block_getGlobalBounds() (blocks);
        // for (int i = 0; i < 20; i++) {
        /*     if (i == 7) {
@@ -1139,7 +1685,7 @@ void handle_movement(status& wizard, maap& map, float& velocity_y, bool& can_jum
     }
 
     // Handle movement left and right
-    if (Keyboard::isKeyPressed(Keyboard::Left)) {
+    if (Keyboard::isKeyPressed(Keyboard::A)) {
         animation.moving = true;
         if (animation.moving)
         {
@@ -1151,7 +1697,7 @@ void handle_movement(status& wizard, maap& map, float& velocity_y, bool& can_jum
         }
 
     }
-    if (Keyboard::isKeyPressed(Keyboard::Right)) {
+    if (Keyboard::isKeyPressed(Keyboard::D)) {
         animation.moving = true;
         if (animation.moving)
         {
@@ -1281,7 +1827,7 @@ void bullet_animation(float& timer, Bullet& bullet, int& i, int& u, float& delay
     }
 }
 void setup_bullets_w(Bullet& bullet) {
-    bullet.bullet_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\image.png");
+    bullet.bullet_tx.loadFromFile("./assets/image.png");
     bullet.bullet.setTexture(bullet.bullet_tx);
     bullet.bullet.setScale(0.28f, .28f);
     bullet.bullet.setTextureRect(IntRect(0, 0, 192, 192));
@@ -1340,7 +1886,7 @@ void shoot_bullet(Vector2f player_position, Vector2f mouse_position, Bullet*& bu
     }
 }
 
-void update_bullets(Bullet*& bullets, int& numBullets, Vector2f& player_center, Boss& boss) {
+void update_bullets(Bullet*& bullets, int& numBullets, Vector2f& player_center, Boss& boss, std::vector<enemies>& enemies_list) {
     for (int i = 0; i < numBullets; ) {
         bullets[i].bullet.move(bullets[i].bullet_velocity);
         float distance = sqrt(pow(bullets[i].bullet.getPosition().x - player_center.x, 2) +
@@ -1349,8 +1895,18 @@ void update_bullets(Bullet*& bullets, int& numBullets, Vector2f& player_center, 
         // Check if the bullet exceeds its range or hits the enemy
         bool is_hit = bullets[i].bullet.getGlobalBounds().intersects(boss.shape.getGlobalBounds());
 
+
+        bool ishit_enemy = false;
+        for (auto& enemy : enemies_list) {
+            if (bullets[i].bullet.getGlobalBounds().intersects(enemy.enemy.getGlobalBounds())) {
+                enemy.hp -= wizard.autodamage; // Decrease enemy health by 10
+                ishit_enemy = true;
+                break;
+            }
+        }
+
         // Remove bullet if it exceeds range or hits the enemy
-        if (distance > bullets[i].range || is_hit) {
+        if (distance > bullets[i].range || is_hit || ishit_enemy) {
             if (is_hit) {
 
                 if (items[0].extra_damage_active)
@@ -1389,7 +1945,7 @@ void draw_bullets(RenderWindow& window, Bullet* bullets, int numBullets) {
 // Main character and ground initialization function
 void main_character_and_ground() {
     // Initialize the main character (wizard)
-    wizard.wizard.setPosition(Vector2f(120, 440));
+    wizard.wizard.setPosition(Vector2f(8000, 440));
 
     // Initialize the enemy (enemy)
     enemy.enemy.setSize(Vector2f(30, 50));
@@ -1922,22 +2478,22 @@ struct UI
 //Functions:=====================
 
 void PDrawUI(UI& ui) {
-    ui.Ui.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\UI.png");
+    ui.Ui.loadFromFile("./assets/UI.png");
     ui.UI.setTexture(ui.Ui);
     ui.UI.setPosition(15, 10);
     ui.UI.setScale(0.85, 0.85);
 
-    ui.pause.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Pause.png");
+    ui.pause.loadFromFile("./assets/Pause.png");
     ui.pause_icon.setTexture(ui.pause);
     ui.pause_icon.setPosition(1820, 20);
     ui.pause_icon.setScale(1.3, 1.3);
 
-    ui.holderbar.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\1.png");
+    ui.holderbar.loadFromFile("./assets/1.png");
     ui.holder.setTexture(ui.holderbar);
     ui.holder.setPosition(1920 / 2 - 320, 860);
     ui.holder.setScale(1.35, 1.35);
 
-    ui.border.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Pxiel_Art_UI_borders3.png");
+    ui.border.loadFromFile("./assets/Pxiel_Art_UI_borders3.png");
     ui.border_f.setTexture(ui.border);
     ui.border_q.setTexture(ui.border);
     ui.border_w.setTexture(ui.border);
@@ -1956,46 +2512,46 @@ void PDrawUI(UI& ui) {
     ui.border_f.setPosition(1920 / 2 + 270, 902);
     ui.border_f.setScale(0.9, 0.9);
 
-    ui.flame.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\flame.png");
+    ui.flame.loadFromFile("./assets/flame.png");
     ui.flame_icon.setTexture(ui.flame);
     ui.flame_icon.setPosition(760, 921);
     ui.flame_icon.setScale(0.125, 0.125);
 
-    ui.people_compressed.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\time_warp.png");
+    ui.people_compressed.loadFromFile("./assets/time_warp.png");
     ui.people_app2.setTexture(ui.people_compressed);
     ui.people_app2.setPosition(1005, 925);
     ui.people_app2.setScale(0.95, 0.95);
 
-    ui.thunder.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Flash_HD.png");
+    ui.thunder.loadFromFile("./assets/Flash_HD.png");
     ui.thunder_icon.setTexture(ui.thunder);
     ui.thunder_icon.setPosition(1920 / 2 + 294, 923);
     ui.thunder_icon.setScale(0.25, 0.25);
 
-    ui.heal_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\heal.png");
+    ui.heal_tx.loadFromFile("./assets/heal.png");
     ui.heal.setTexture(ui.heal_tx);
     ui.heal.setScale(0.42, 0.42);
 
 
-    ui.button_f.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\F.png");
+    ui.button_f.loadFromFile("./assets/F.png");
     ui.f.setTexture(ui.button_f);
     ui.f.setPosition(1920 / 2 + 245, 940);
     ui.f.setScale(1.3, 1.3);
 
-    ui.button_q.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Q.png");
+    ui.button_q.loadFromFile(". / assets / Q.png");
     ui.q.setTexture(ui.button_q);
     ui.q.setPosition(1920 / 2 - 247, 940);
     ui.q.setScale(1.3, 1.3);
 
-    ui.button_w.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\W.png");
+    ui.button_w.loadFromFile("./assets/W.png");
     ui.w.setTexture(ui.button_w);
     ui.w.setPosition(1920 / 2, 940);
     ui.w.setScale(1.3, 1.3);
 
-    ui.button_r.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\R.png");
+    ui.button_r.loadFromFile("./assets/R.png");
     ui.r.setTexture(ui.button_r);
     ui.r.setScale(1.3, 1.3);
 
-    ui.timer.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Rectangle_1.png");
+    ui.timer.loadFromFile("./assets/Rectangle_1.png");
     ui.timer_q.setTexture(ui.timer);
     ui.timer_q.setPosition(758, 918);
     ui.timer_q.setScale(0.93, 0.93);
@@ -2011,22 +2567,22 @@ void PDrawUI(UI& ui) {
     ui.timer_f.setPosition(1248, 918);
     ui.timer_f.setScale(0.93, 0.93);
 
-    ui.portal_state.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\8-deadlands_portal.png");
+    ui.portal_state.loadFromFile("./assets/8-deadlands_portal.png");
     ui.portal.setTexture(ui.portal_state);
     ui.portal.setPosition(36, 36);
     ui.portal.setScale(0.35, 0.35);
 
-    ui.volcano_state.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\1-deadlands_vulcano.png");
+    ui.volcano_state.loadFromFile("./assets/1-deadlands_vulcano.png");
     ui.volcano.setTexture(ui.volcano_state);
     ui.volcano.setPosition(36, 36);
     ui.volcano.setScale(0.35, 0.35);
 
-    ui.cards_holder.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\fantasy empty playboard.png");
+    ui.cards_holder.loadFromFile("./assets/fantasy empty playboard.png");
     ui.c_holder.setTexture(ui.cards_holder);
     ui.c_holder.setPosition(480, 220);
     ui.c_holder.setScale(0.55, 0.55);
 
-    ui.cards.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\card fantasy golden.png");
+    ui.cards.loadFromFile(". / assets / card fantasy golden.png");
     ui.card1.setTexture(ui.cards);
     ui.card1.setPosition(520, 280);
     ui.card1.setScale(0.4, 0.4);
@@ -2039,28 +2595,28 @@ void PDrawUI(UI& ui) {
     ui.card3.setPosition(1200, 280);
     ui.card3.setScale(0.4, 0.4);
 
-    ui.hp.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\healthBar.png");
+    ui.hp.loadFromFile("./assets/healthBar.png");
     ui.Hpbar.setTexture(ui.hp);
     ui.Hpbar.setPosition(15, 10);
     ui.Hpbar.setScale(0.85, 0.85);
 
-    ui.mn.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\manaBar.png");
+    ui.mn.loadFromFile("./assets/manaBar.png");
     ui.Manabar.setTexture(ui.mn);
     ui.Manabar.setPosition(15, 10);
     ui.Manabar.setScale(0.85, 0.85);
 
-    ui.xp.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Xp_bar.png");
+    ui.xp.loadFromFile("./assets/Xp_bar.png");
     ui.xpbar.setTexture(ui.xp);
     ui.xpbar.setPosition(15, 10);
     ui.xpbar.setScale(0.85, 0.85);
 
-    ui.xpbtx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\XPBarFill.png");
+    ui.xpbtx.loadFromFile("./assets/XPBarFill.png");
     ui.xpb.setTexture(ui.xpbtx);
     ui.xpb.setScale(0.85, 0.85);
     ui.xpb.setPosition(365, 92);
 
-    ui.Status.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\status.png");
-    ui.DoneBTN.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\button.png");
+    ui.Status.loadFromFile("./assets/status.png");
+    ui.DoneBTN.loadFromFile("./assets/button.png");
     ui.StatusSp.setTexture(ui.Status);
     ui.DoneBTN_SP.setTexture(ui.DoneBTN);
     ui.Status.setSmooth(true);
@@ -2070,7 +2626,7 @@ void PDrawUI(UI& ui) {
     ui.DoneBTN_SP.setPosition(Vector2f(950, 650));
     ui.DoneBTN_SP.setScale(1.5, 1.5);
 
-    ui.plus_button.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\PlusButton.png");
+    ui.plus_button.loadFromFile("./assets/PlusButton.png");
     ui.hp_button.setTexture(ui.plus_button);
     ui.hp_button.setPosition(1172, 394);
     ui.hp_button.setScale(1.1f, 1.1f);
@@ -2090,22 +2646,22 @@ void PDrawUI(UI& ui) {
     ui.haste_button.setPosition(1172, 560);
     ui.haste_button.setScale(1.1f, 1.1f);
 
-    ui.pause_sheet.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\spritesheet_13.png");
+    ui.pause_sheet.loadFromFile("./assets/spritesheet_13.png");
     ui.pause_holder.setTexture(ui.pause_sheet);
     ui.pause_holder.setPosition(-100, 80);
     ui.pause_holder.setScale(2, 2);
 
-    ui.quittx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\button_Quit.png");
+    ui.quittx.loadFromFile("./assets/button_Quit.png");
     ui.quit.setTexture(ui.quittx);
     ui.quit.setPosition(Vector2f(895, 650));
     ui.quit.setScale(2.f, 2.f);
 
-    ui.resumetx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\button_Resume.png");
+    ui.resumetx.loadFromFile("./assets/button_Resume.png");
     ui.resume.setTexture(ui.resumetx);
     ui.resume.setPosition(Vector2f(895, 250));
     ui.resume.setScale(2.f, 2.f);
 
-    ui.font.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\antiquity-print.ttf");
+    ui.font.loadFromFile(". / assets/antiquity - print.ttf");
     ui.timerq.setFont(ui.font);
     ui.timerR.setFont(ui.font);
     ui.timerf.setFont(ui.font);
@@ -2115,11 +2671,11 @@ void PDrawUI(UI& ui) {
     ui.enemy_death_counter.setPosition(Vector2f(480, 180));
     ui.text.setFont(ui.font);
 
-    ui.ability_2_back.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\Space Background.png");
+    ui.ability_2_back.loadFromFile("./assets/Space Background.png");
     ui.back.setTexture(ui.ability_2_back);
     ui.back.setScale(2.5, 2.3);
 
-    ui.ab1_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\05.png");
+    ui.ab1_tx.loadFromFile("./assets/05.png");
     ui.ab1.setTexture(ui.ab1_tx);
     ui.ab12.setTexture(ui.ab1_tx);
     ui.ab13.setTexture(ui.ab1_tx);
@@ -2497,12 +3053,13 @@ void blocks_colision(maap& map, bool& is_on_ground, maap2& map2, bool& level1_co
     }
 
 }
+bool level1_completed = true;
+bool level2_completed = false;
+bool level3_completed = true;
+
 int main() {
     RenderWindow window(sf::VideoMode(1920, 1080), "SFML Health Bar");
 
-    bool level1_completed = false;
-    bool level2_completed = true;
-    bool level3_completed = true;
 
     Boss boss;
     SetupBoss(boss, wizard);
@@ -2518,6 +3075,15 @@ int main() {
 
     Ability2 ability2;
     setupAbility2(ability2);
+
+    Boss2 boss2;
+    SetupBoss2(boss2, wizard);
+
+    Ability ball;
+    setupability_1(ball);
+
+    Abilityb2 poison;
+    setupability_2(poison);
 
     maap map;
     maap2 map2;
@@ -2558,7 +3124,7 @@ int main() {
     // Initialize the main character and ground
     main_character_and_ground();
     //set_texture(wizard);
-    wizard.wiz_tx.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\7.png");
+    wizard.wiz_tx.loadFromFile("./texturs/main c/6.png");
     wizard.wizard.setTexture(wizard.wiz_tx);
     wizard.wizard.setTextureRect(IntRect(0, 0, 96, 98));
 
@@ -2633,14 +3199,21 @@ int main() {
     int jump_counter = 0;
     bool new_level = true;
 
-    enemy1.enemy.setPosition(500, 805);
+    //---------------------------------------------
+    Clock damageClock;
 
-    enemy1.enemy.setFillColor(Color::Green);
-    enemy1.enemy.setSize(Vector2f(30, 50));
-    enemy1.enemy.setOutlineThickness(3.f);
-    enemy1.enemy.setOutlineColor(Color::White);
+    enemies enemy5[20];
+    int num = 500;
+    for (int i = 0; i < 20; i++)
+    {
+        enemy5[i].enemy.setPosition(num, 770);
+        enemies_list.push_back(enemy5[i]);
+        num += 200;
+    }
+    //--------------------------------------------
 
-    Clock damge;
+
+
     while (window.isOpen()) {
         sf::Event event;
         clock.restart();
@@ -2653,6 +3226,25 @@ int main() {
                 isPaused = !isPaused; // Toggle the state
                 i = 0;
                 sound.pausedSound.play();
+            }
+            ///////////////////////////////////////////
+            if (wizard.wizard.getPosition().x > 400000 && mappp == true && !level1_completed && level2_completed && level3_completed) {
+
+                level1_completed = true;
+                level2_completed = false;
+                Game_play(window, map, map2, level1_completed, level2_completed, level3_completed);
+                //////////////////////
+                wizard.wizard.setPosition(10, 500);
+
+                mappp = false;
+            }
+            if (wizard.wizard.getPosition().x > 60000 && mappp == true && level1_completed && !level2_completed && level3_completed) {
+
+                level1_completed = false;
+                level2_completed = true;
+                ////////////////////////////////////
+                Game_play(window, map, map2, level1_completed, level2_completed, level3_completed);
+                mappp = false;
             }
             if (isPaused)
             {
@@ -2682,6 +3274,7 @@ int main() {
                     ui.quit.setScale(2., 2.);
                 }
             }
+
             if (!isPaused) {
 
                 // Get the mouse position
@@ -2716,8 +3309,6 @@ int main() {
         if (!isPaused) {
             non_negative(wizard.hp);
             non_negative(wizard.mana);
-
-            setup_enemy(wizard, enemy1, damge);
 
             view.setCenter(wizard.wizard.getPosition().x, 540);
 
@@ -2809,7 +3400,7 @@ int main() {
                 }
             }
             // Update bullets' positions and manage them
-            update_bullets(bullets, numBullets, player_center, boss);
+            update_bullets(bullets, numBullets, player_center, boss, enemies_list);
             qwf_timer(ui, qq, ww, ff, rr);
             xp_animation(xp_bar, ui);
             wizard_level(enemy, wizard, wizard.ishit, ui.hp_button, ui.mana_button, ui.ap_button, ui.attack_speed_button, ui.haste_button, ui.movement_button, counter_xp, power_up_t, window);
@@ -2819,6 +3410,10 @@ int main() {
             enemy_deaths_counter(ui);
             if (!level1_completed && level2_completed && level3_completed)
             {
+                ///----------------------------------------
+
+                update_enemies(wizard, enemies_list, damageClock, deltaTime);
+                ///-------------------------------------------
                 if (new_level)
                 {
                     Game_play(window, map, map2, level1_completed, level2_completed, level3_completed);
@@ -2860,7 +3455,7 @@ int main() {
                 get_damaged(animation, deltaTime, wizard);
                 //cout << wizard.hp << endl;
                 //boss_fight(wizard, wiz_in_area);
-                //cout << wizard.wizard.getPosition().x << "\\" << wizard.wizard.getPosition().y << endl;
+
                 //9127.25\805
                 if (wizard.hp == 0)
                 {
@@ -2902,19 +3497,22 @@ int main() {
                     }
                 }
 
-                handle_movement_enemy(enemy, map, velocity_y_enemy, is_on_ground, deltaTime, gravity, enemy.istimewarpon);
+                animateBoss2(boss2, wizard, deltaTime);
+                moveBoss2(boss2, wizard, deltaTime);
 
-                animateBoss(boss, wizard, deltaTime);
-                moveBoss(boss, wizard, deltaTime, boss_moving, wizard.wizard, wiz_in_area);
-                fireBullet(bulllets, numBulllets, boss, wizard, deltaTime, boss.currentFrame);
-                fireBigFireball(fireball, boss, wizard);
-                activateAbility2(ability2, boss, wizard);
-                updateFireball(fireball, wizard, deltaTime);
-                updateAbility2(ability2, wizard, deltaTime);
+                bossHit(boss2, wizard);
+                fireability_1(ball, boss2, wizard);
+                updateability_1(ball, wizard, deltaTime);
+                ability_2(poison, boss2, wizard);
+                updateability_2(poison, wizard);
+
+
+
+
                 get_damaged(animation, deltaTime, wizard);
                 //cout << wizard.hp << endl;
                 //boss_fight(wizard, wiz_in_area);
-                //cout << wizard.wizard.getPosition().x << "\\" << wizard.wizard.getPosition().y << endl;
+
                 //9127.25\805
                 if (wizard.hp == 0)
                 {
@@ -2980,6 +3578,41 @@ int main() {
             for (int i = 0; i < 5; i++) {
                 window.draw(map.blocks0[i]);  //blocks small
             }//blocks small
+            for (size_t i = 0; i < numBullets; i++)
+            {
+                bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
+                bullets[i].bullet.setTexture(bullets[i].bullet_tx);
+                window.draw(bullets[i].bullet);
+            }
+            window.draw(boss.shape);
+
+            for (size_t i = 0; i < numBulllets; i++)
+            {
+                animateBullet(bulllets[i]);
+                bulllets[i].shape.setTexture(bulllets[i].bulletTexture);
+                window.draw(bulllets[i].shape);
+            }
+
+            if (ability2.active = 1)
+            {
+                animateAbility2(ability2);
+                updateAbility2(ability2, wizard, deltaTime);
+                ability2.shape.setTexture(ability2.AbilityTexture);
+                window.draw(ability2.shape);
+
+            }
+
+            if (fireball.active)
+            {
+                animateFireBall(fireball, boss);
+                fireball.shape.setTexture(fireball.AbilityTexture);
+                window.draw(fireball.shape);
+            }
+
+            for (const auto& enemy : enemies_list) {
+                window.draw(enemy.enemy);
+            }
+
         }
         else if (level1_completed && !level2_completed && level3_completed)
         {
@@ -2988,6 +3621,7 @@ int main() {
             }
             for (int i = 0; i < 18; i++) {
                 window.draw(map2.blocks3[i]);
+
             }
             for (int i = 1; i < 16; i++) {
                 window.draw(map2.blocks4[i]);
@@ -2997,8 +3631,26 @@ int main() {
             }
 
             for (int i = 0; i < 4; i++) {
-                window.draw(map2.blocks0[i]);  //blocks small
+                window.draw(map2.blocks0[i]);
+
+                //blocks small
             }//blocks small
+            window.draw(boss2.shape);
+            if (ball.active)
+            {
+                animateability_1(ball, boss2);
+                ball.shape.setTexture(ball.AbilityTexture);
+                window.draw(ball.shape);
+            }
+
+            if (poison.active)
+            {
+                animateability_2(poison, wizard);
+                poison.shape.setTexture(poison.AbilityTexture);
+                poison.shape.setPosition(poison.position);
+                window.draw(poison.shape);
+            }
+
         }
         // Draw bullets
 
@@ -3019,35 +3671,7 @@ int main() {
                 window.draw(ui.ab16);
             }
 
-            for (size_t i = 0; i < numBullets; i++)
-            {
-                bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
-                bullets[i].bullet.setTexture(bullets[i].bullet_tx);
-                window.draw(bullets[i].bullet);
-            }
-            window.draw(boss.shape);
 
-            for (size_t i = 0; i < numBulllets; i++)
-            {
-                animateBullet(bulllets[i]);
-                bulllets[i].shape.setTexture(bulllets[i].bulletTexture);
-                window.draw(bulllets[i].shape);
-            }
-
-            if (ability2.active)
-            {
-                animateAbility2(ability2);
-                ability2.shape.setTexture(ability2.AbilityTexture);
-                window.draw(ability2.shape);
-            }
-
-            if (fireball.active)
-            {
-                animateFireBall(fireball, boss);
-                fireball.shape.setTexture(fireball.AbilityTexture);
-                window.draw(fireball.shape);
-            }
-            window.draw(enemy1.enemy);
             window.draw(ui.UI);
             window.draw(ui.pause_icon);
             window.draw(ui.holder);
@@ -3314,31 +3938,7 @@ void get_damaged(ani& animation, float dt, status& wizard) {
     }
 }
 
-void rect(Sprite blocks3[]) {
 
-    //blocks[0].setPosition(1400,640);
-    //blocks[0].setScale(1, 1);
-    //blocks[1].setPosition(1100,500);
-    //blocks[1].setScale(1, 1);
-    //blocks[2].setPosition(340,380);
-    //blocks[2].setScale(1, 1);
-    //blocks[3].setPosition(-10,500);
-    //blocks[3].setScale(1, 1);
-    //blocks[4].setPosition(1430,370);
-    //blocks[4].setScale(1, 1);
-    //blocks[5].setPosition(650,255);
-    //blocks[5].setScale(1, 1);
-    //blocks[6].setPosition(510,780);
-    //blocks[6].setScale(1, 1);
-    //blocks[7].setPosition(0,503);  //ground
-    // blocks[7].setScale(1, 1);
-    /*  blocks[8].setPosition(850,910);
-    blocks[8].setScale(1, 1);
-    blocks[9].setPosition(1750, 500);
-    blocks[9].setScale(1, 1);
-    blocks[10].setPosition(340, 640);
-    blocks[10].setScale(1, 1);*/
-}
 void block_small(maap& map, maap2& map2, bool& level1_completed, bool& level2_completed, bool& level3_completed) {
 
     if (!level1_completed && level2_completed && level3_completed)
@@ -3426,22 +4026,7 @@ void block_triangle(maap& map, maap2& map2, bool& level1_completed, bool& level2
         map.blocks2[1].setScale(1, 1);
         map.blocks2[2].setPosition(7300, 660);
         map.blocks2[2].setScale(1, 1);
-        //blocks2[3].setPosition(-10, 500);
-        // blocks2[3].setScale(1, 1);
-        // blocks2[4].setPosition(1430, 370);
-        // blocks2[4].setScale(1, 1);
-        // blocks2[5].setPosition(650, 255);
-        // blocks2[5].setScale(1, 1);              //blocks triangle
-        // blocks2[6].setPosition(510, 780);
-        // blocks2[6].setScale(1, 1);
-        // blocks2[7].setPosition(0, 1040);
-        // blocks2[7].setScale(1, 1);
-        // blocks2[8].setPosition(850, 910);
-        // blocks2[8].setScale(1, 1);
-        // blocks2[9].setPosition(1750, 500);
-        // blocks2[9].setScale(1, 1);
-        // blocks2[10].setPosition(340, 640);
-        // blocks2[10].setScale(1, 1);
+
     }
     else if (level1_completed && !level2_completed && level3_completed)
     {
@@ -3452,22 +4037,7 @@ void block_triangle(maap& map, maap2& map2, bool& level1_completed, bool& level2
         map2.blocks2[1].setScale(1, 1);
         map2.blocks2[2].setPosition(12300, 710);
         map2.blocks2[2].setScale(1, 1);
-        //map2.blocks2[3].setPosition(7700, 540);
-      // map2.blocks2[3].setScale(1.5, 1);
-         // blocks2[4].setPosition(1430, 370);
-         // blocks2[4].setScale(1, 1);
-         // blocks2[5].setPosition(650, 255);
-         // blocks2[5].setScale(1, 1);              //blocks triangle
-         // blocks2[6].setPosition(510, 780);
-         // blocks2[6].setScale(1, 1);
-         // blocks2[7].setPosition(0, 1040);
-         // blocks2[7].setScale(1, 1);
-         // blocks2[8].setPosition(850, 910);
-         // blocks2[8].setScale(1, 1);
-         // blocks2[9].setPosition(1750, 500);
-         // blocks2[9].setScale(1, 1);
-         // blocks2[10].setPosition(340, 640);
-         // blocks2[10].setScale(1, 1);
+
     }
 }
 void block_big(maap& map, maap2& map2, bool& level1_completed, bool& level2_completed, bool& level3_completed) {
@@ -3611,20 +4181,7 @@ void block_triangle_left(maap& map, maap2& map2, bool& level1_completed, bool& l
         map2.blocks6[1].setScale(.7, .7);
         map2.blocks6[2].setPosition(32240, 380);
         map2.blocks6[2].setScale(1, 1);
-        //map2.blocks6[3].setPosition(-10, 500);
-        //map2.blocks6[3].setScale(1, 1);
-        //map2.blocks6[4].setPosition(1430, 370);
-        //map2.blocks6[4].setScale(1, 1);
-        //map2.blocks6[5].setPosition(650, 255);
-        //map2.blocks6[5].setScale(1, 1);              //blocks triangle left
-        //map2.blocks6[6].setPosition(510, 780);
-        //map2.blocks6[6].setScale(1, 1);
-        //map2.blocks6[7].setPosition(0, 1040);
-        //map2.blocks6[7].setScale(1, 1);
-        //map2.blocks6[8].setPosition(850, 910);
-        //map2.blocks6[8].setScale(1, 1);
-        //map2.blocks6[9].setPosition(1750, 500);
-        //map2.blocks6[9].setScale(1, 1);
+
     }
 }
 void block_triangle_right(maap& map, maap2& map2, bool& level1_completed, bool& level2_completed, bool& level3_completed) {
@@ -3659,20 +4216,7 @@ void block_triangle_right(maap& map, maap2& map2, bool& level1_completed, bool& 
         map2.blocks7[1].setScale(.7, .7);
         map2.blocks7[2].setPosition(340, 380);
         map2.blocks7[2].setScale(1, 1);
-        //map2.blocks7[3].setPosition(-10, 500);
-        //map2.blocks7[3].setScale(1, 1);
-        //map2.blocks7[4].setPosition(1430, 370);
-        //map2.blocks7[4].setScale(1, 1);
-        //map2.blocks7[5].setPosition(650, 255);
-        //map2.blocks7[5].setScale(1, 1);              //blocks triangle right
-        //map2.blocks7[6].setPosition(510, 780);
-        //map2.blocks7[6].setScale(1, 1);
-        //map2.blocks7[7].setPosition(0, 1040);
-        //map2.blocks7[7].setScale(1, 1);
-        //map2.blocks7[8].setPosition(850, 910);
-        //map2.blocks7[8].setScale(1, 1);
-        //map2.blocks7[9].setPosition(1750, 600);
-        //map2.blocks7[9].setScale(1, 1);
+
     }
 }
 void block0(maap& map, maap2& map2, bool& level1_completed, bool& level2_completed, bool& level3_completed) {
@@ -3713,19 +4257,6 @@ void block_tree(maap2& map2) {
     map2.block8[1].setScale(1, 1);
     map2.block8[2].setPosition(13550, 580);
     map2.block8[2].setScale(1, 1);
-    //map2.blocks7[3].setPosition(-10, 500);
-    //map2.blocks7[3].setScale(1, 1);
-    //map2.blocks7[4].setPosition(1430, 370);
-    //map2.blocks7[4].setScale(1, 1);
-    //map2.blocks7[5].setPosition(650, 255);
-    //map2.blocks7[5].setScale(1, 1);              //blocks triangle right
-    //map2.blocks7[6].setPosition(510, 780);
-    //map2.blocks7[6].setScale(1, 1);
-    //map2.blocks7[7].setPosition(0, 1040);
-    //map2.blocks7[7].setScale(1, 1);
-    //map2.blocks7[8].setPosition(850, 910);
-    //map2.blocks7[8].setScale(1, 1);
-    //map2.blocks7[9].setPosition(1750, 600);
-    //map2.blocks7[9].setScale(1, 1);
+
 
 }
