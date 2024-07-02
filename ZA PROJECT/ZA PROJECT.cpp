@@ -1342,36 +1342,38 @@ void setup_enemy(status& wizard, enemies& enemy, Clock& damageClock, float dt) {
     float wiz_pos = wizard.wizard.getPosition().x;
     float enemy_pos = enemy.enemy.getPosition().x;
     float distance = abs(wiz_pos - enemy_pos);
-
-    if (distance <= 300 && distance >= 30) {
-        /*check_animation(enemy);*/
-        enemy.run = true;
-        enemy.ide = false;
-        enemy.attack = false;
-        run_animation(enemy, wizard, dt);
-        int direction = wiz_pos - enemy_pos;
-        float movementSpeed = 0.1f * (direction / abs(direction)); // Normalize direction
-        enemy.enemy.move(movementSpeed, 0);
-    }
-    else if (distance <= 30) {
-        /*check_animation(enemy);*/
-        enemy.run = false;
-        enemy.ide = false;
-        //enemy.attack = false;
-        attack_animation(enemy, wizard, dt);
-        if (damageClock.getElapsedTime().asSeconds() >= 1.5f && abs(wizard.wizard.getPosition().y - enemy.enemy.getPosition().y) < 50) {
-            enemy.attack = true;
-            damageClock.restart();
-            wizard.hp -= enemy.damage; // Apply damage
+    if (!wizard.time_warp_active) {
+        if (distance <= 300 && distance >= 30) {
+            /*check_animation(enemy);*/
+            enemy.run = true;
+            enemy.ide = false;
+            enemy.attack = false;
+            run_animation(enemy, wizard, dt);
+            int direction = wiz_pos - enemy_pos;
+            float movementSpeed = 0.1f * (direction / abs(direction)); // Normalize direction
+            enemy.enemy.move(movementSpeed, 0);
+        }
+        else if (distance <= 30) {
+            /*check_animation(enemy);*/
+            enemy.run = false;
+            enemy.ide = false;
+            //enemy.attack = false;
+            attack_animation(enemy, wizard, dt);
+            if (damageClock.getElapsedTime().asSeconds() >= 1.5f && abs(wizard.wizard.getPosition().y - enemy.enemy.getPosition().y) < 50) {
+                enemy.attack = true;
+                damageClock.restart();
+                wizard.hp -= enemy.damage; // Apply damage
+            }
+        }
+        else {
+            /*check_animation(enemy);*/
+            enemy.attack = false;
+            enemy.run = false;
+            enemy.ide = true;
+            ide_animation(enemy, dt);
         }
     }
-    else {
-        /*check_animation(enemy);*/
-        enemy.attack = false;
-        enemy.run = false;
-        enemy.ide = true;
-        ide_animation(enemy, dt);
-    }
+    
 }
 
 void update_enemies(status& wizard, std::vector<enemies>& enemies_list, Clock& damageClock, float dt)
