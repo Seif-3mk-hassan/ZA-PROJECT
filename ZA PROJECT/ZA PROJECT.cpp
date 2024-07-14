@@ -227,12 +227,17 @@ const float min_distance_to_main = 150.f;
 const float gravity = 300;
 const float floorHeight = 100.0f;
 const int maxBullets = 5;
+
 ////////////////////////////////
 const float shooting_ability = 5;
 const float abilityb2 = 8.5;
 const float distance_to_hit = 40.f;
 bool mappp = true;
 ///////////////////////////////////
+const float w_boss3 = 231;
+const float h_boss3 = 139;
+const float fire_rate3 = 1;
+const float ability3 = 8.5;
 enum BossState
 {
     Standing,
@@ -1181,6 +1186,391 @@ void bossHit(Boss2& boss, status& character)
 
     }
 }
+/////////////////////////////////////////////////////
+
+enum Boss3State
+{
+    Standing3,
+    Moving3,
+    Shooting3,
+    Ability_13,
+    Dead3
+};
+
+struct Boss3
+{
+    sf::RectangleShape shape;
+    sf::Vector2f velocity;
+    sf::Texture standingTexture;
+    sf::Texture movingTexture;
+    sf::Texture shootingTexture;
+    sf::Texture ability_1Texture;
+    sf::Texture deathTexture;
+    Boss3State state;
+    int currentFrame;
+    float frameDuration;
+    float elapsedTime;
+    float Health = 2000;
+};
+struct Bullet_b3
+{
+    sf::Sprite shape;
+    sf::Vector2f direction;
+    sf::Clock timer;
+    sf::Texture bulletTexture;
+    float currentFrame;
+};
+
+
+struct Abilityb3
+{
+    sf::Sprite shape;
+    sf::Vector2f velocity;
+    sf::Clock cooldownTimer;
+    sf::Texture AbilityTexture;
+    int currentFrame;
+    bool active = false;
+    sf::Vector2f position;
+};
+
+void SetupBoss3(Boss3& boss, status& character)
+{
+    boss.standingTexture.loadFromFile("./assets/Idle_3.png");
+    boss.movingTexture.loadFromFile("./assets/Run_3.png");
+    boss.shootingTexture.loadFromFile("./assets/Attack_3.png");
+    boss.ability_1Texture.loadFromFile("./assets/ability_3.png");
+    boss.deathTexture.loadFromFile("./assets/Death_3.png");
+
+    boss.shape.setSize(sf::Vector2f(w_boss3, h_boss3));
+    boss.shape.setPosition(50, 380);
+
+    boss.state = Boss3State::Standing3;
+
+    boss.currentFrame = 0;
+    boss.frameDuration = 0.1258f; // Adjust this value according to your animation speed
+    boss.elapsedTime = 0.f;
+
+    boss.shape.setTexture(&boss.standingTexture);
+}
+
+void setupBullet3(Bullet_b3& bullet)
+{
+    bullet.bulletTexture.loadFromFile("./assets/bulets_3.png");
+
+    bullet.shape.setTexture(bullet.bulletTexture);
+    bullet.shape.setTextureRect(sf::IntRect(0, 0, 50, 17)); // Set initial frame
+    bullet.currentFrame = 0;
+}
+void setupability_3(Abilityb3& poison)
+{
+    poison.AbilityTexture.loadFromFile("./assets/effect_3.png");
+    poison.shape.setTextureRect(sf::IntRect(0, 0, 74, 74));
+    poison.currentFrame = 0;
+}
+
+
+
+
+
+void animateBoss3(Boss3& boss, status& character, float deltaTime)
+{
+    float distanceToMain = sqrt(pow(character.wizard.getPosition().x - boss.shape.getPosition().x, 2) +
+        pow(character.wizard.getPosition().y - boss.shape.getPosition().y, 2));
+
+    static sf::Clock animation_bullets;
+    static sf::Clock animation_ability_1;
+    static sf::Clock death__3;
+
+    bool shooting = 0;
+    bool ability_1 = 0;
+    static bool once = 1;
+    bool dead = 0;
+
+    if (boss.Health <= 0 or death__3.getElapsedTime().asSeconds() >= 10)
+    {
+        boss.state = Boss3State::Dead3;
+        dead = 1;
+    }
+    else if (animation_ability_1.getElapsedTime().asSeconds() >= ability3 and once and !dead)
+    {
+        boss.state = Boss3State::Ability_13;
+        if (animation_ability_1.getElapsedTime().asSeconds() >= boss.frameDuration * 8 + ability3 and !dead)
+        {
+            once = false;
+            animation_ability_1.restart();
+        }
+    }
+    else if (animation_bullets.getElapsedTime().asSeconds() >= fire_rate and !ability_1 and !dead)
+    {
+        boss.state = Boss3State::Shooting3;
+        if (animation_bullets.getElapsedTime().asSeconds() >= boss.frameDuration * 8 + fire_rate)
+            animation_bullets.restart();
+    }
+    else if (distanceToMain <= min_distance_to_main and !dead)
+    {
+        boss.state = Boss3State::Standing3;
+    }
+    else
+    {
+        if (!shooting and !ability_1 and !dead)
+        {
+            boss.state = Boss3State::Moving3;
+        }
+    }
+
+    sf::Vector2f direction = character.wizard.getPosition() - boss.shape.getPosition();
+
+    if (direction.x < 0)
+    {
+        boss.shape.setScale(-3.f, 3.f);
+        boss.shape.setOrigin(w_boss3 / 2.f, 0);
+    }
+    else
+    {
+        boss.shape.setScale(3.f, 3.f);
+        boss.shape.setOrigin(w_boss3 / 2.f, 0);
+    }
+
+
+    switch (boss.state)
+    {
+    case Boss3State::Standing3:
+        boss.shape.setTexture(&boss.standingTexture);
+        break;
+    case Boss3State::Moving3:
+        boss.shape.setTexture(&boss.movingTexture);
+        break;
+    case Boss3State::Shooting3:
+        boss.shape.setTexture(&boss.shootingTexture);
+        shooting = 1;
+        break;
+    case Boss3State::Ability_13:
+        boss.shape.setTexture(&boss.ability_1Texture);
+        ability_1 = 1;
+        break;
+    case Boss3State::Dead3:
+        boss.shape.setTexture(&boss.deathTexture);
+        break;
+    }
+
+    if (boss.state == Boss3State::Dead3)
+    {
+        static sf::Clock fireB;
+        static sf::Clock done;
+
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.25 and done.getElapsedTime().asSeconds() <= 0.25 * 8)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 7)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss3, 0, w_boss3, h_boss3));
+            fireB.restart();
+        }
+    }
+    else if (boss.state == Boss3State::Standing3)
+    {
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.2)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 6)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss3, 0, w_boss3, h_boss3));
+            fireB.restart();
+        }
+    }
+    else if (boss.state == Boss3State::Ability_13)
+    {
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.25)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 8)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss3, 0, w_boss3, h_boss3));
+            fireB.restart();
+        }
+    }
+    else
+    {
+        static sf::Clock fireB;
+
+        if (fireB.getElapsedTime().asSeconds() >= 0.175)
+        {
+            boss.currentFrame += 1;
+
+            if (boss.currentFrame >= 8)
+            {
+                boss.currentFrame = 0;
+            }
+            boss.shape.setTextureRect(sf::IntRect((int)boss.currentFrame * w_boss3, 0, w_boss3, h_boss3));
+            fireB.restart();
+        }
+    }
+}
+
+void animateBullet3(Bullet_b3& bullet)
+{
+    bullet.shape.setScale(2.5f, 2.5f);
+    bullet.shape.setOrigin(w_boss3 / 10.f - 60, -h_boss3 / 12.f - 90);
+    bullet.currentFrame += 0.5;
+    if (bullet.currentFrame >= 4)
+    {
+        bullet.currentFrame = 0;
+    }
+    bullet.shape.setTextureRect(sf::IntRect((int)bullet.currentFrame * 50, 0, 50, 17));
+}
+
+
+void animateability_3(Abilityb3& poison)
+{
+    static sf::Clock fireB;
+
+    if (fireB.getElapsedTime().asSeconds() >= 0.25)
+    {
+        poison.currentFrame += 1;
+
+        if (poison.currentFrame >= 14)
+        {
+            poison.currentFrame = 0;
+        }
+        poison.shape.setTextureRect(sf::IntRect((int)poison.currentFrame * 74, 0, 74, 74));
+        fireB.restart();
+    }
+}
+
+void updateability_3(Abilityb3& poison, status& character)
+{
+    if (poison.active)
+    {
+        static sf::Clock activation;
+        if (activation.getElapsedTime().asSeconds() >= 0.25 * 14)
+        {
+            activation.restart();
+            poison.active = false;
+        }
+    }
+}
+
+void moveBoss3(Boss3& boss, status& character, float deltaTime)
+{
+    if (boss.state != Boss3State::Ability_13 and boss.state != Boss3State::Dead3)
+    {
+        sf::Vector2f direction = character.wizard.getPosition() - boss.shape.getPosition();
+        float length = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+        sf::Vector2f normalizedDirection = direction / length;
+
+        boss.velocity = normalizedDirection * boss_speed * deltaTime * ch_speed;
+
+        if (length <= min_distance_to_main)
+        {
+            boss.velocity = sf::Vector2f(0.f, 0.f);
+        }
+
+        boss.velocity.y = 0/*gravity * deltaTime*/;
+
+        boss.shape.move(boss.velocity);
+    }
+
+    if (boss.shape.getPosition().y + boss.shape.getSize().y > Window_height - floorHeight)
+    {
+        boss.shape.setPosition(boss.shape.getPosition().x, Window_height - floorHeight - boss.shape.getSize().y);
+        boss.velocity.y = 0;
+    }
+
+    if (boss.shape.getPosition().x < 0)
+    {
+        boss.shape.setPosition(0, boss.shape.getPosition().y);
+    }
+    if (boss.shape.getPosition().x + boss.shape.getSize().x > Window_width)
+    {
+        boss.shape.setPosition(Window_width - boss.shape.getSize().x, boss.shape.getPosition().y);
+    }
+}
+
+void ability_3(Abilityb3& poison, Boss3& boss, status& character)
+{
+    if (poison.cooldownTimer.getElapsedTime().asSeconds() >= ability3 and boss.state == Boss3State::Ability_13)
+    {
+        setupability_3(poison);
+        poison.cooldownTimer.restart();
+        poison.position = character.wizard.getPosition();
+        poison.active = false;//remeber to fix
+        ////////////////////////
+    }
+}
+void fireBullet3(Bullet_b3* bullets, int& numBullets3, Boss3& boss, status& character, float deltaTime, int currentFrame)
+{
+    static sf::Clock fireClock;
+    Bullet_b3 bullet;
+    setupBullet3(bullet);
+    // Fire bullets when boss is in shooting state and at the right frame of the shooting animation
+    if (fireClock.getElapsedTime().asSeconds() >= fire_rate and boss.currentFrame == 6 and boss.state == BossState::Shooting)
+    {
+        fireClock.restart();
+
+        // Calculate aim direction based on character position and boss position
+        sf::Vector2f aimDir = character.wizard.getPosition() - boss.shape.getPosition();
+        aimDir.y -= h_boss3 / 3;
+        float length = sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
+        sf::Vector2f aimDirNorm = aimDir / length;
+
+        bullet.shape.setPosition(boss.shape.getPosition().x, boss.shape.getPosition().y + h_boss3 / 3 - 90);
+
+        if (aimDir.x < 0)
+        {
+            bullet.shape.setScale(-1.f, 1.f);
+        }
+        else
+        {
+            bullet.shape.setScale(1.f, 1.f);
+        }
+        bullet.timer.restart();
+        bullet.direction = aimDirNorm;
+        bullets[numBullets3] = bullet;
+        numBullets3++;
+    }
+
+
+    for (size_t i = 0; i < numBullets3; i++)
+    {
+        float bulletSpeedX = bullet_speed * bullets[i].direction.x;
+        float bulletSpeedY = bullet_speed * bullets[i].direction.y;
+        bullets[i].shape.move(bulletSpeedX * deltaTime, bulletSpeedY * deltaTime);
+
+        if (bullets[i].shape.getGlobalBounds().intersects(character.wizard.getGlobalBounds()) ||
+            bullets[i].shape.getPosition().x < 0 || bullets[i].shape.getPosition().x > Window_width ||
+            bullets[i].shape.getPosition().y < 0 || bullets[i].shape.getPosition().y > Window_height)
+        {
+            character.hp -= 50;
+            for (int j = i; j < numBullets3 - 1; j++)
+            {
+                bullets[j] = bullets[j + 1];
+            }
+            numBullets3--;
+            i--;
+        }
+    }
+}
+
+
+
+
+
+
+
 
 
 
@@ -1439,310 +1829,8 @@ void update_enemies(status& wizard, std::vector<enemies>& enemies_list, Clock& d
     }
 }
 
-////////////////////////////////////////////////////////////
-//const int Window_width = 1200;
-//const int Window_height = 800;
-const float w_enemy2 = 90;
-const float h_enemy2 = 90;
-const float fire_rate_e2 = 0.25;
-const int bullet_speed_e2 = 300.f;
-//const float ch_speed = 150;
-const float enemy2_speed = 0.8f;
-const float min_distance_to_main_e2 = 150.f;
-//const float floorHeight = 100.0f;
-//const int maxBullets = 5;
 
 
-enum enemy_2State
-{
-    Standing_e2,
-    Moving_e2,
-    Shooting_e2,
-    Dead_e2
-};
-
-struct enemy_2
-{
-    RectangleShape shape;
-    Vector2f velocity;
-    Texture standingTexture;
-    Texture movingTexture;
-    Texture shootingTexture;
-    Texture deathTexture;
-    enemy_2State state;
-    int currentFrame;
-    float frameDuration;
-    float elapsedTime;
-    float Health = 200;
-};
-
-struct Bullet_e2
-{
-    sf::Sprite shape;
-    sf::Vector2f direction;
-    sf::Clock timer;
-    sf::Texture bulletTexture;
-    float currentFrame;
-};
-
-
-
-void SetupEnemy_e2(enemy_2& enemy, const Vector2f& position)
-{
-    enemy.standingTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\idle_e2.png");
-    enemy.movingTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\walk_e2.png");
-    enemy.shootingTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\attack_e2.png");
-    enemy.deathTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\death_e2.png");
-
-
-    enemy.shape.setSize(sf::Vector2f(w_enemy2, h_enemy2));
-    enemy.shape.setPosition(position);
-
-    enemy.state = enemy_2State::Standing_e2;
-
-    enemy.currentFrame = 0;
-    enemy.frameDuration = 0.1258f; // Adjust this value according to your animation speed
-    enemy.elapsedTime = 0.f;
-
-    enemy.shape.setTexture(&enemy.standingTexture);
-}
-
-void setupBullet_e2(Bullet_e2& bullet)
-{
-    bullet.bulletTexture.loadFromFile("C:\\Users\\Seif2\\source\\repos\\ConsoleApplication8\\ConsoleApplication8\\assets\\bullet_e2.png");
-
-    bullet.shape.setTexture(bullet.bulletTexture);
-    bullet.shape.setTextureRect(sf::IntRect(0, 0, 46, 24)); // Set initial frame
-    bullet.currentFrame = 0;
-}
-
-void animateEnemy_2(enemy_2& enemy, status& character, float deltaTime)
-{
-    float distanceToMain = sqrt(pow(character.wizard.getPosition().x - enemy.shape.getPosition().x, 2) +
-        pow(character.wizard.getPosition().y - enemy.shape.getPosition().y, 2));
-
-    static sf::Clock animation_bullets;
-    static sf::Clock deadly;
-
-
-    bool shooting = 0;
-    bool dead = 0;
-
-    if (enemy.Health <= 0 /* or deadly.getElapsedTime().asSeconds() >= 5 */)
-    {
-        enemy.state = enemy_2State::Dead_e2;
-        dead = 1;
-    }
-    else if (animation_bullets.getElapsedTime().asSeconds() >= fire_rate_e2 and !dead)
-    {
-        enemy.state = enemy_2State::Shooting_e2;
-        if (animation_bullets.getElapsedTime().asSeconds() >= enemy.frameDuration * 8 + fire_rate_e2)
-            animation_bullets.restart();
-    }
-    else if (distanceToMain <= min_distance_to_main_e2)
-    {
-        enemy.state = enemy_2State::Standing_e2;
-    }
-    else
-    {
-        if (!shooting and !dead)
-        {
-            enemy.state = enemy_2State::Moving_e2;
-        }
-    }
-
-    sf::Vector2f direction = character.wizard.getPosition() - enemy.shape.getPosition();
-
-    if (direction.x < 0)
-    {
-        enemy.shape.setScale(-2.f, 2.f);
-        enemy.shape.setOrigin(w_enemy2 / 2.f, 0);
-    }
-    else
-    {
-        enemy.shape.setScale(2.f, 2.f);
-        enemy.shape.setOrigin(w_enemy2 / 2.f, 0);
-    }
-
-
-    switch (enemy.state)
-    {
-    case enemy_2State::Standing_e2:
-        enemy.shape.setTexture(&enemy.standingTexture);
-        break;
-    case enemy_2State::Moving_e2:
-        enemy.shape.setTexture(&enemy.movingTexture);
-        break;
-    case enemy_2State::Shooting_e2:
-        enemy.shape.setTexture(&enemy.shootingTexture);
-        shooting = 1;
-        break;
-    case enemy_2State::Dead_e2:
-        enemy.shape.setTexture(&enemy.deathTexture);
-        break;
-    }
-
-    if (enemy.state == enemy_2State::Shooting_e2)
-    {
-        static sf::Clock fireB;
-
-        if (fireB.getElapsedTime().asSeconds() >= 0.2)
-        {
-            enemy.currentFrame += 1;
-
-            if (enemy.currentFrame >= 16)
-            {
-                enemy.currentFrame = 0;
-            }
-            enemy.shape.setTextureRect(sf::IntRect((int)enemy.currentFrame * w_enemy2, 0, w_enemy2, h_enemy2));
-            fireB.restart();
-        }
-    }
-    else if (enemy.state == enemy_2State::Dead_e2)
-    {
-        static sf::Clock fireB;
-
-        if (fireB.getElapsedTime().asSeconds() >= 0.5)
-        {
-            enemy.currentFrame += 1;
-
-            if (enemy.currentFrame >= 8)
-            {
-                enemy.currentFrame = 7;
-            }
-            enemy.shape.setTextureRect(sf::IntRect((int)enemy.currentFrame * w_enemy2, 0, w_enemy2, h_enemy2));
-            fireB.restart();
-        }
-    }
-    else
-    {
-        static sf::Clock fireB;
-
-        if (fireB.getElapsedTime().asSeconds() >= 0.175)
-        {
-            enemy.currentFrame += 1;
-
-            if (enemy.currentFrame >= 9)
-            {
-                enemy.currentFrame = 0;
-            }
-            enemy.shape.setTextureRect(sf::IntRect((int)enemy.currentFrame * w_enemy2, 0, w_enemy2, h_enemy2));
-            fireB.restart();
-        }
-    }
-}
-
-void animateBullet_e2(Bullet_e2& bullet)
-{
-    bullet.currentFrame += 0.5;
-    if (bullet.currentFrame >= 6)
-    {
-        bullet.currentFrame = 0;
-    }
-    bullet.shape.setTextureRect(sf::IntRect((int)bullet.currentFrame * 46, 0, 46, 24));
-}
-
-void moveEnemy_e2(enemy_2& enemy, status& character, float deltaTime)
-{
-    if (!wizard.time_warp_active)
-    {
-        float direction = character.wizard.getPosition().x - enemy.shape.getPosition().x;
-        float length = sqrt(pow(direction, 2) + pow(direction, 2)) + (w_enemy2);
-        float normalizedDirection = direction / length;
-
-        enemy.velocity.x = normalizedDirection * enemy2_speed * deltaTime * ch_speed;
-
-        if (direction < 0)
-        {
-            if (length <= min_distance_to_main_e2 + w_enemy2)
-            {
-                enemy.velocity = Vector2f(0.f, 0.f);
-            }
-        }
-        else
-        {
-            if (length <= min_distance_to_main_e2)
-            {
-                enemy.velocity = Vector2f(0.f, 0.f);
-            }
-        }
-
-        enemy.shape.move(enemy.velocity);
-    }
-
-
-    //if (boss.shape.getPosition().y + boss.shape.getSize().y > Window_height - floorHeight)
-    //{
-    //    boss.shape.setPosition(boss.shape.getPosition().x, Window_height - floorHeight - boss.shape.getSize().y);
-    //    boss.velocity.y = 0;
-    //}
-
-    //if (boss.shape.getPosition().x < 0)
-    //{
-    //    boss.shape.setPosition(0, boss.shape.getPosition().y);
-    //}
-    //if (boss.shape.getPosition().x + boss.shape.getSize().x > Window_width)
-    //{
-    //    boss.shape.setPosition(Window_width - boss.shape.getSize().x, boss.shape.getPosition().y);
-    //}
-}
-
-
-void fireBullet_e2(Bullet_e2* bullets, int& numBullets, enemy_2& boss, status& character, float deltaTime, int currentFrame)
-{
-    static sf::Clock fireClock;
-
-    // Fire bullets when boss is in shooting state and at the right frame of the shooting animation
-    if (fireClock.getElapsedTime().asSeconds() >= fire_rate_e2 and boss.currentFrame == 12 and boss.state == enemy_2State::Shooting_e2)
-    {
-        Bullet_e2 bullet;
-        setupBullet_e2(bullet);
-        fireClock.restart();
-
-        // Calculate aim direction based on character position and boss position
-        sf::Vector2f aimDir = character.wizard.getPosition() - boss.shape.getPosition();
-        aimDir.y -= h_enemy2 / 5;
-        float length = sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
-        sf::Vector2f aimDirNorm = aimDir / length;
-
-        bullet.shape.setPosition(boss.shape.getPosition().x, boss.shape.getPosition().y + h_enemy2 / 3);
-
-        if (aimDir.x < 0)
-        {
-            bullet.shape.setScale(-3.f, 3.f);
-        }
-        else
-        {
-            bullet.shape.setScale(3.f, 3.f);
-        }
-        bullet.timer.restart();
-        bullet.direction = aimDirNorm;
-        bullets[numBullets] = bullet;
-        numBullets++;
-    }
-
-    // Update bullets' positions and check for collisions
-    for (size_t i = 0; i < numBullets; i++)
-    {
-        float bulletSpeedX = bullet_speed_e2 * bullets[i].direction.x;
-        float bulletSpeedY = bullet_speed_e2 * bullets[i].direction.y;
-        bullets[i].shape.move(bulletSpeedX * deltaTime, bulletSpeedY * deltaTime);
-
-        if (bullets[i].shape.getGlobalBounds().intersects(character.wizard.getGlobalBounds()) ||
-            bullets[i].shape.getPosition().x < 0 || bullets[i].shape.getPosition().x > 6000 ||
-            bullets[i].shape.getPosition().y < 0 || bullets[i].shape.getPosition().y > 1080)
-        {
-            character.hp -= 50;
-            for (int j = i; j < numBullets - 1; j++)
-            {
-                bullets[j] = bullets[j + 1];
-            }
-            numBullets--;
-            i--;
-        }
-    }
-}
-///////////////////////////////////////////////////////////
 
 
 
@@ -3260,6 +3348,7 @@ void view_position(View& view, RenderWindow& window, maap& map, UI& ui, maap2& m
 void blocks_colision(maap& map, bool& is_on_ground, maap2& map2, bool& level1_completed, bool& level2_completed, bool& level3_completed, map3& MAP3) {
     if (!level1_completed && level2_completed && level3_completed)
     {
+        is_on_ground = 0;
         for (int i = 0; i < 5; i++) {
 
             if (i == 1 || i == 3 || i == 4) {
@@ -3365,6 +3454,7 @@ void blocks_colision(maap& map, bool& is_on_ground, maap2& map2, bool& level1_co
     }
     else if (level1_completed && !level2_completed && level3_completed)
     {
+        is_on_ground = 0;
         for (int i = 0; i < 5; i++) {
 
             if (i == 0 || i == 1 || i == 2 || i == 3) {
@@ -3479,8 +3569,10 @@ void blocks_colision(maap& map, bool& is_on_ground, maap2& map2, bool& level1_co
     }
     else if (level1_completed && level2_completed && !level3_completed)
     {
+        is_on_ground = 0;
         for (int i = 0; i < 4; i++)
         {
+
             FloatRect block3_bounds = MAP3.mapp3[i].getGlobalBounds();
             FloatRect player_bounds = wizard.wizard.getGlobalBounds();
             if (player_bounds.intersects(block3_bounds)) {
@@ -3512,8 +3604,9 @@ void blocks_colision(maap& map, bool& is_on_ground, maap2& map2, bool& level1_co
                     else {
                         correctionVector.x = xOverlap; // Move right
                     }
+                    is_on_ground = true;
                 }
-                is_on_ground = true;
+
                 // Move the player away from the block using the calculated correction vector
                 wizard.wizard.move(correctionVector);
             }
@@ -3551,6 +3644,21 @@ int main() {
 
     Abilityb2 poison_b2;
     setupability_2(poison_b2);
+    //////////////////////////////
+
+    Boss3 boss3;
+    SetupBoss3(boss3, wizard);
+
+    Bullet_b3 bullet3;
+    setupBullet3(bullet3);
+
+    Bullet_b3* bullets3 = new Bullet_b3[maxBullets];
+    int numBullets3 = 0;
+
+    Abilityb3 ability3;
+    setupability_3(ability3);
+
+
 
     maap map;
     maap2 map2;
@@ -3679,29 +3787,7 @@ int main() {
 
     //--------------------------------------------
 
-    /////////////////////////////////////////////
-    vector<enemy_2> enemies;
-    vector<Vector2f> enemyPositions = { {50 , 770} /*, {230 , 540} , {345 , 444}*/ };
 
-    for (auto& pos : enemyPositions)
-    {
-        enemy_2 enemy;
-        SetupEnemy_e2(enemy, pos);
-        enemies.push_back(enemy);
-    }
-
-    Bullet_e2 bullet_e2;
-    setupBullet_e2(bullet_e2);
-
-    Bullet_e2* bullets_e2 = new Bullet_e2[maxBullets];
-    int numBullets_e = 0;
-
-    sf::RectangleShape floor(sf::Vector2f(Window_width, 50));
-    floor.setPosition(0, Window_height - floorHeight);
-    floor.setFillColor(sf::Color::White);
-
-    sf::Clock enemy_clock;
-    ///////////////////////////////////////////
 
     while (window.isOpen()) {
         sf::Event event;
@@ -3716,83 +3802,84 @@ int main() {
                 i = 0;
                 sound.pausedSound.play();
             }
-            ///////////////////////////////////////////
-            if (wizard.wizard.getPosition().x > 400000 && mappp == true && !level1_completed && level2_completed && level3_completed) {
+        }
+        ///////////////////////////////////////////
+        if (wizard.wizard.getPosition().x > 400000 && mappp == true && !level1_completed && level2_completed && level3_completed) {
 
-                level1_completed = true;
-                level2_completed = false;
-                Game_play(window, map, map2, level1_completed, level2_completed, level3_completed, MAP3);
-                //////////////////////
-                wizard.wizard.setPosition(10, 500);
+            level1_completed = true;
+            level2_completed = false;
+            Game_play(window, map, map2, level1_completed, level2_completed, level3_completed, MAP3);
+            //////////////////////
+            wizard.wizard.setPosition(10, 500);
 
-                mappp = false;
-            }
-            if (wizard.wizard.getPosition().x > 60000 && mappp == true && level1_completed && !level2_completed && level3_completed) {
+            mappp = false;
+        }
+        if (wizard.wizard.getPosition().x > 60000 && mappp == true && level1_completed && !level2_completed && level3_completed) {
 
-                level1_completed = false;
-                level2_completed = true;
-                ////////////////////////////////////
-                Game_play(window, map, map2, level1_completed, level2_completed, level3_completed, MAP3);
-                mappp = false;
-            }
-            if (isPaused)
+            level1_completed = false;
+            level2_completed = true;
+            ////////////////////////////////////
+            Game_play(window, map, map2, level1_completed, level2_completed, level3_completed, MAP3);
+            mappp = false;
+        }
+        if (isPaused)
+        {
+            Vector2i mouse_Position = Mouse::getPosition(window);
+            Vector2f mousePosition = window.mapPixelToCoords(mouse_Position);
+            if (ui.resume.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
             {
-                Vector2i mouse_Position = Mouse::getPosition(window);
-                Vector2f mousePosition = window.mapPixelToCoords(mouse_Position);
-                if (ui.resume.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+                ui.resume.setScale(2.2, 2.2);
+                //sound.hover_sound.play();
+                if (Mouse::isButtonPressed(Mouse::Left))
                 {
-                    ui.resume.setScale(2.2, 2.2);
-                    //sound.hover_sound.play();
-                    if (Mouse::isButtonPressed(Mouse::Left))
-                    {
-                        isPaused = false;
-                    }
-                }
-                else if (ui.quit.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
-                {
-                    ui.quit.setScale(2.2, 2.2);
-                    //sound.hover_sound.play();
-                    if (Mouse::isButtonPressed(Mouse::Left))
-                    {
-                        window.close();
-                    }
-                }
-                else
-                {
-                    ui.resume.setScale(2., 2.);
-                    ui.quit.setScale(2., 2.);
+                    isPaused = false;
                 }
             }
-
-            if (!isPaused) {
-
-                // Get the mouse position
-                Vector2i mouse_Position = Mouse::getPosition(window);
-                Vector2f mousePosition = window.mapPixelToCoords(mouse_Position);
-                if (Mouse::isButtonPressed(Mouse::Left))//Check if the mouse is pressed
+            else if (ui.quit.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+            {
+                ui.quit.setScale(2.2, 2.2);
+                //sound.hover_sound.play();
+                if (Mouse::isButtonPressed(Mouse::Left))
                 {
-                    // Check if the mouse position is within the bounds of the text
-                    if (ui.pause_icon.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
-                    {
-                        //page = 2;//the page of the kybaords
-                        sound.pausedSound.play();
-                        i = 0;
-                        isPaused = true;
-                    }
+                    window.close();
                 }
-                //if the mouse is not pressed
-                if (ui.pause_icon.getGlobalBounds().contains(mousePosition.x, mousePosition.y))//if the mouse is on the button 
-                {
-                    //sound.hover_sound.play();
-                    ui.pause_icon.setScale(1.2, 1.2);//make the button bigger by scale of 0.1 or as you want
-                }
-                else
-                {
-                    //if the mouse if not on the buttton
-                    ui.pause_icon.setScale(1, 1);//return the button to his regular size
-                }
+            }
+            else
+            {
+                ui.resume.setScale(2., 2.);
+                ui.quit.setScale(2., 2.);
             }
         }
+
+        if (!isPaused) {
+
+            // Get the mouse position
+            Vector2i mouse_Position = Mouse::getPosition(window);
+            Vector2f mousePosition = window.mapPixelToCoords(mouse_Position);
+            if (Mouse::isButtonPressed(Mouse::Left))//Check if the mouse is pressed
+            {
+                // Check if the mouse position is within the bounds of the text
+                if (ui.pause_icon.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+                {
+                    //page = 2;//the page of the kybaords
+                    sound.pausedSound.play();
+                    i = 0;
+                    isPaused = true;
+                }
+            }
+            //if the mouse is not pressed
+            if (ui.pause_icon.getGlobalBounds().contains(mousePosition.x, mousePosition.y))//if the mouse is on the button 
+            {
+                //sound.hover_sound.play();
+                ui.pause_icon.setScale(1.2, 1.2);//make the button bigger by scale of 0.1 or as you want
+            }
+            else
+            {
+                //if the mouse if not on the buttton
+                ui.pause_icon.setScale(1, 1);//return the button to his regular size
+            }
+        }
+
         HealthAnimationSwap(wizard.hp, ui);
         ManaAnimationSwap(wizard.mana, ui);
         if (!isPaused) {
@@ -3914,16 +4001,6 @@ int main() {
                     enemies_C.restart();
                 }
 
-                //////////////////////////////////////////
-                for (int i = 0; i < enemies.size(); i++)
-                {
-                    animateEnemy_2(enemies[i], wizard, deltaTime);
-                    moveEnemy_e2(enemies[i], wizard, deltaTime);
-                    fireBullet_e2(bullets_e2, numBullets_e, enemies[i], wizard, deltaTime, enemies[i].currentFrame);
-                }
-
-                //////////////////////////////////////////
-
                 update_enemies(wizard, enemies_list, damageClock, deltaTime);
                 ///-------------------------------------------
                 if (new_level)
@@ -4034,21 +4111,26 @@ int main() {
 
                 }
             }
-            if (new_level)
+            else if (level1_completed && level2_completed && !level3_completed)
             {
-                Game_play(window, map, map2, level1_completed, level2_completed, level3_completed, MAP3);
-            }
-            new_level = false;
-            blocks_colision(map, is_on_ground, map2, level1_completed, level2_completed, level3_completed, MAP3);
-            view_position(view, window, map, ui, map2, level1_completed, level2_completed, level3_completed);
-            // Handle movement
-            handle_movement(wizard, map, velocity_y, can_jump, is_on_ground, deltaTime, gravity, it, animation, sound.jumpSound, poison_b2);
-            if (can_jump == false)
-            {
-                jump_counter++;
-                if (jump_counter == 1)
+                if (new_level)
                 {
-                    jump_clock.restart();
+                    Game_play(window, map, map2, level1_completed, level2_completed, level3_completed, MAP3);
+                }
+                new_level = false;
+                handle_movement(wizard, map, velocity_y, can_jump, is_on_ground, deltaTime, gravity, it, animation, sound.jumpSound, poison_b2);
+                blocks_colision(map, is_on_ground, map2, level1_completed, level2_completed, level3_completed, MAP3);
+                view_position(view, window, map, ui, map2, level1_completed, level2_completed, level3_completed);
+                // Handle movement
+
+                if (can_jump == false)
+                {
+                    jump_counter++;
+                    if (jump_counter == 1)
+
+                    {
+                        jump_clock.restart();
+                    }
                 }
                 if (animation.lr == true) {
                     animation.u = 12;
@@ -4061,277 +4143,285 @@ int main() {
                     jump_animation(animation, deltatime, wizard, jump_clock, is_on_ground, jump_counter);
 
                 }
+                animateBoss3(boss3, wizard, deltaTime);
+                moveBoss3(boss3, wizard, deltaTime);
+                fireBullet3(bullets3, numBullets3, boss3, wizard, deltaTime, boss3.currentFrame);
+
+                ability_3(ability3, boss3, wizard);
+                updateability_3(ability3, wizard);
+
+
+
+
+
+            }
+            if (isPaused)
+            {
+                if (timer < 0)
+                {
+                    i++;
+                    if (i < 9)
+                    {
+                        i = i % 10;
+                        ui.pause_holder.setTextureRect(IntRect(i * 768, 0, 768, 385));
+                        timer = delay;
+
+                    }
+                    else
+                    {
+                        ui.pause_holder.setTextureRect(IntRect(9 * 768, 0, 768, 385));
+                        pause_buttons = true;
+                    }
+                }
+                else {
+                    timer -= deltaTime;
+                }
+            }
+
+            //sf::Time elapsed = clock.restart();
+            window.clear();
+            if (!level1_completed && level2_completed && level3_completed)
+            {
+                window.draw(map.background_sprite);
+            }
+            else if (level1_completed && !level2_completed && level3_completed)
+            {
+                window.draw(map2.background_sprite);
             }
             else if (level1_completed && level2_completed && !level3_completed)
             {
                 window.draw(MAP3.B_map3);
             }
+
+
+            if (wizard.back_ability)
+            {
+                window.draw(ui.back);
+            }
+            window.setView(view);
+            if (!level1_completed && level2_completed && level3_completed)
+            {
+                for (int i = 0; i < 17; i++) {
+                    window.draw(map.blocks2[i]);  //blocks triangle
+                }
+                for (int i = 0; i < 17; i++) {
+                    window.draw(map.blocks3[i]);
+                }
+                for (int i = 0; i < 5; i++) {
+                    window.draw(map.blocks0[i]);  //blocks small
+                }//blocks small
+                for (size_t i = 0; i < numBullets; i++)
+                {
+                    bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
+                    bullets[i].bullet.setTexture(bullets[i].bullet_tx);
+                    window.draw(bullets[i].bullet);
+                }
+                window.draw(boss.shape);
+
+                for (size_t i = 0; i < numBulllets; i++)
+                {
+                    animateBullet(bulllets[i]);
+                    bulllets[i].shape.setTexture(bulllets[i].bulletTexture);
+                    window.draw(bulllets[i].shape);
+                }
+
+                if (ability2.active = 1)
+                {
+                    animateAbility2(ability2);
+                    updateAbility2(ability2, wizard, deltaTime);
+                    ability2.shape.setTexture(ability2.AbilityTexture);
+                    window.draw(ability2.shape);
+
+                }
+
+                if (fireball.active)
+                {
+                    animateFireBall(fireball, boss);
+                    fireball.shape.setTexture(fireball.AbilityTexture);
+                    window.draw(fireball.shape);
+                }
+
+                for (const auto& enemy : enemies_list) {
+                    window.draw(enemy.enemy);
+                }
+
+            }
+            else if (level1_completed && !level2_completed && level3_completed)
+            {
+                for (int i = 0; i < 4; i++) {
+                    window.draw(map2.blocks2[i]);  //blocks triangle
+                }
+                for (int i = 0; i < 18; i++) {
+                    window.draw(map2.blocks3[i]);
+
+                }
+                for (int i = 1; i < 16; i++) {
+                    window.draw(map2.blocks4[i]);
+                }
+                for (int i = 0; i < 4; i++) {
+                    window.draw(map2.blocks5[i]);
+                }
+
+                for (int i = 0; i < 4; i++) {
+                    window.draw(map2.blocks0[i]);
+
+                    //blocks small
+                }//blocks small
+                for (size_t i = 0; i < numBullets; i++)
+                {
+                    bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
+                    bullets[i].bullet.setTexture(bullets[i].bullet_tx);
+                    window.draw(bullets[i].bullet);
+                }
+                window.draw(boss2.shape);
+                if (ball.active)
+                {
+                    animateability_1(ball, boss2);
+                    ball.shape.setTexture(ball.AbilityTexture);
+                    window.draw(ball.shape);
+                }
+
+                if (poison_b2.active)
+                {
+                    animateability_2(poison_b2, wizard);
+                    poison_b2.shape.setTexture(poison_b2.AbilityTexture);
+                    poison_b2.shape.setPosition(poison_b2.position);
+                    window.draw(poison_b2.shape);
+                }
+
+            }
+
             else if (level1_completed && level2_completed && !level3_completed)
             {
+
                 for (int i = 0; i < 4; i++)
                 {
                     window.draw(MAP3.mapp3[i]);
                 }
-            }
-
-        }
-        if (isPaused)
-        {
-            if (timer < 0)
-            {
-                i++;
-                if (i < 9)
+                for (size_t i = 0; i < numBullets; i++)
                 {
-                    i = i % 10;
-                    ui.pause_holder.setTextureRect(IntRect(i * 768, 0, 768, 385));
-                    timer = delay;
-
+                    bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
+                    bullets[i].bullet.setTexture(bullets[i].bullet_tx);
+                    window.draw(bullets[i].bullet);
                 }
-                else
+
+
+                window.draw(boss3.shape);
+                for (size_t i = 0; i < numBullets3; i++)
                 {
-                    ui.pause_holder.setTextureRect(IntRect(9 * 768, 0, 768, 385));
-                    pause_buttons = true;
+                    animateBullet3(bullets3[i]);
+                    bullets3[i].shape.setTexture(bullets3[i].bulletTexture);
+                    window.draw(bullets3[i].shape);
+                }
+
+
+
+
+                if (ability3.active)
+                {
+                    animateability_3(ability3);
+                    ability3.shape.setTexture(ability3.AbilityTexture);
+                    ability3.shape.setPosition(ability3.position);
+                    window.draw(ability3.shape);
+                }
+
+            }
+
+            // Draw bullets
+
+            //draw_bullets(window, bullets, numBullets);
+
+            // Draw the wizard and enemy
+            window.draw(wizard.wizard);
+
+            if (!isPaused)
+            {
+                if (firrrrrrre)
+                {
+                    window.draw(ui.ab1);
+                    window.draw(ui.ab12);
+                    window.draw(ui.ab13);
+                    window.draw(ui.ab14);
+                    window.draw(ui.ab15);
+                    window.draw(ui.ab16);
+                }
+
+
+                window.draw(ui.UI);
+                window.draw(ui.pause_icon);
+                window.draw(ui.holder);
+                window.draw(ui.border_w);
+                window.draw(ui.border_q);
+                window.draw(ui.border_f);
+                window.draw(ui.border_r);
+                window.draw(ui.flame_icon);
+                window.draw(ui.people_app2);
+                window.draw(ui.thunder_icon);
+                window.draw(ui.heal);
+                window.draw(ui.f);
+                window.draw(ui.q);
+                window.draw(ui.w);
+                window.draw(ui.r);
+                //window.draw(portal);
+                //window.draw(volcano);
+                window.draw(ui.Hpbar);
+                window.draw(ui.Manabar);
+                window.draw(ui.text);
+                window.draw(ui.enemy_death_counter);
+                window.draw(ui.xpbar);
+                window.draw(ui.xpb);
+                //window.draw(timer_w);
+                if (wizard.if_levelup)
+                {
+                    window.draw(ui.StatusSp);
+                    window.draw(ui.ap_button);
+                    window.draw(ui.hp_button);
+                    window.draw(ui.mana_button);
+                    window.draw(ui.movement_button);
+                    window.draw(ui.attack_speed_button);
+                    window.draw(ui.haste_button);
+                }
+                if (wizard.timerq)
+                {
+                    window.draw(ui.timer_q);
+                    window.draw(ui.timerq);
+                }
+                if (wizard.timerw)
+                {
+                    window.draw(ui.timer_w);
+                    window.draw(ui.timerw);
+                }
+                if (wizard.timerR)
+                {
+                    window.draw(ui.timer_r);
+                    window.draw(ui.timerR);
+                }
+                if (wizard.timerf)
+                {
+                    window.draw(ui.timer_f);
+                    window.draw(ui.timerf);
                 }
             }
-            else {
-                timer -= deltaTime;
+            else if (isPaused)
+            {
+                //window.draw(StatusSp);
+                //window.draw(DoneBTN_SP);
+                window.draw(ui.pause_holder);
+                if (pause_buttons)
+                {
+                    window.draw(ui.resume);
+                    window.draw(ui.quit);
+                }
             }
+            window.display();
+            deltaTime = clock.getElapsedTime().asSeconds();
         }
-
-        //sf::Time elapsed = clock.restart();
-        window.clear();
-        if (!level1_completed && level2_completed && level3_completed)
-        {
-            window.draw(map.background_sprite);
-        }
-        else if (level1_completed && !level2_completed && level3_completed)
-        {
-            window.draw(map2.background_sprite);
-        }
-        else if (level1_completed && level2_completed && !level3_completed)
-        {
-            window.draw(MAP3.B_map3);
-        }
-
-
-        if (wizard.back_ability)
-        {
-            window.draw(ui.back);
-        }
-        window.setView(view);
-        if (!level1_completed && level2_completed && level3_completed)
-        {
-            for (int i = 0; i < 17; i++) {
-                window.draw(map.blocks2[i]);  //blocks triangle
-            }
-            for (int i = 0; i < 17; i++) {
-                window.draw(map.blocks3[i]);
-            }
-            for (int i = 0; i < 5; i++) {
-                window.draw(map.blocks0[i]);  //blocks small
-            }//blocks small
-            for (size_t i = 0; i < numBullets; i++)
-            {
-                bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
-                bullets[i].bullet.setTexture(bullets[i].bullet_tx);
-                window.draw(bullets[i].bullet);
-            }
-            window.draw(boss.shape);
-
-            for (size_t i = 0; i < numBulllets; i++)
-            {
-                animateBullet(bulllets[i]);
-                bulllets[i].shape.setTexture(bulllets[i].bulletTexture);
-                window.draw(bulllets[i].shape);
-            }
-
-            if (ability2.active = 1)
-            {
-                animateAbility2(ability2);
-                updateAbility2(ability2, wizard, deltaTime);
-                ability2.shape.setTexture(ability2.AbilityTexture);
-                window.draw(ability2.shape);
-
-            }
-
-            if (fireball.active)
-            {
-                animateFireBall(fireball, boss);
-                fireball.shape.setTexture(fireball.AbilityTexture);
-                window.draw(fireball.shape);
-            }
-
-            for (const auto& enemy : enemies_list) {
-                window.draw(enemy.enemy);
-            }
-
-            /////////////////////////////////
-            for (const auto& enemy : enemies)
-            {
-                window.draw(enemy.shape);
-            }
-
-            for (size_t i = 0; i < numBullets_e; i++)
-            {
-                animateBullet_e2(bullets_e2[i]);
-                bullets_e2[i].shape.setTexture(bullets_e2[i].bulletTexture);
-                /*bullets_e2[i].shape.setScale(3.f, 3.f);*/
-                window.draw(bullets_e2[i].shape);
-            }
-
-            /////////////////////////////////
-
-
-        }
-        else if (level1_completed && !level2_completed && level3_completed)
-        {
-            for (int i = 0; i < 4; i++) {
-                window.draw(map2.blocks2[i]);  //blocks triangle
-            }
-            for (int i = 0; i < 18; i++) {
-                window.draw(map2.blocks3[i]);
-
-            }
-            for (int i = 1; i < 16; i++) {
-                window.draw(map2.blocks4[i]);
-            }
-            for (int i = 0; i < 4; i++) {
-                window.draw(map2.blocks5[i]);
-            }
-
-            for (int i = 0; i < 4; i++) {
-                window.draw(map2.blocks0[i]);
-
-                //blocks small
-            }//blocks small
-            for (size_t i = 0; i < numBullets; i++)
-            {
-                bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
-                bullets[i].bullet.setTexture(bullets[i].bullet_tx);
-                window.draw(bullets[i].bullet);
-            }
-            window.draw(boss2.shape);
-            if (ball.active)
-            {
-                animateability_1(ball, boss2);
-                ball.shape.setTexture(ball.AbilityTexture);
-                window.draw(ball.shape);
-            }
-
-            if (poison_b2.active)
-            {
-                animateability_2(poison_b2, wizard);
-                poison_b2.shape.setTexture(poison_b2.AbilityTexture);
-                poison_b2.shape.setPosition(poison_b2.position);
-                window.draw(poison_b2.shape);
-            }
-
-        }
-        else if (level1_completed && level2_completed && !level3_completed)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                window.draw(MAP3.mapp3[i]);
-            }
-            for (size_t i = 0; i < numBullets; i++)
-            {
-                bullet_animation(bullet_timer, bullets[i], i_bullet, u_bullet, bullet_delay, deltaTime);
-                bullets[i].bullet.setTexture(bullets[i].bullet_tx);
-                window.draw(bullets[i].bullet);
-            }
-        }
-        // Draw bullets
-
-        //draw_bullets(window, bullets, numBullets);
-
-        // Draw the wizard and enemy
-        window.draw(wizard.wizard);
-
-        if (!isPaused)
-        {
-            if (firrrrrrre)
-            {
-                window.draw(ui.ab1);
-                window.draw(ui.ab12);
-                window.draw(ui.ab13);
-                window.draw(ui.ab14);
-                window.draw(ui.ab15);
-                window.draw(ui.ab16);
-            }
-
-
-            window.draw(ui.UI);
-            window.draw(ui.pause_icon);
-            window.draw(ui.holder);
-            window.draw(ui.border_w);
-            window.draw(ui.border_q);
-            window.draw(ui.border_f);
-            window.draw(ui.border_r);
-            window.draw(ui.flame_icon);
-            window.draw(ui.people_app2);
-            window.draw(ui.thunder_icon);
-            window.draw(ui.heal);
-            window.draw(ui.f);
-            window.draw(ui.q);
-            window.draw(ui.w);
-            window.draw(ui.r);
-            //window.draw(portal);
-            //window.draw(volcano);
-            window.draw(ui.Hpbar);
-            window.draw(ui.Manabar);
-            window.draw(ui.text);
-            window.draw(ui.enemy_death_counter);
-            window.draw(ui.xpbar);
-            window.draw(ui.xpb);
-            //window.draw(timer_w);
-            if (wizard.if_levelup)
-            {
-                window.draw(ui.StatusSp);
-                window.draw(ui.ap_button);
-                window.draw(ui.hp_button);
-                window.draw(ui.mana_button);
-                window.draw(ui.movement_button);
-                window.draw(ui.attack_speed_button);
-                window.draw(ui.haste_button);
-            }
-            if (wizard.timerq)
-            {
-                window.draw(ui.timer_q);
-                window.draw(ui.timerq);
-            }
-            if (wizard.timerw)
-            {
-                window.draw(ui.timer_w);
-                window.draw(ui.timerw);
-            }
-            if (wizard.timerR)
-            {
-                window.draw(ui.timer_r);
-                window.draw(ui.timerR);
-            }
-            if (wizard.timerf)
-            {
-                window.draw(ui.timer_f);
-                window.draw(ui.timerf);
-            }
-        }
-        else if (isPaused)
-        {
-            //window.draw(StatusSp);
-            //window.draw(DoneBTN_SP);
-            window.draw(ui.pause_holder);
-            if (pause_buttons)
-            {
-                window.draw(ui.resume);
-                window.draw(ui.quit);
-            }
-        }
-        window.display();
-        deltaTime = clock.getElapsedTime().asSeconds();
     }
     delete[] bullets;
     return 0;
+
 }
+
 
 void idle(ani& animation, float dt, status& wizard, bool can_jump) {
     if ((!wizard.hp == 0))
